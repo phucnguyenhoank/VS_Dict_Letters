@@ -1,0 +1,7 @@
+# Bỏ qua thư mục x64
+x64/
+
+# Bỏ qua các tệp cụ thể
+Main.vcxproj
+Main.vcxproj.filters
+Main.vcxproj.user
