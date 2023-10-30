@@ -1,12 +1,12 @@
 ﻿
-#include "DictEng.h"
+#include "WordGame.h"
 
 int main() {
-	DictEng* dt = new DictEng();
-	// dt->playWordGame();
-	// dt->suggestWord();
-	char c = _getch();
-	std::cout << int(c);
+
+	WordQuizGame* wg = new WordQuizGame();
+
+	wg->playWordGame();
+
 	return 0;
 }
 

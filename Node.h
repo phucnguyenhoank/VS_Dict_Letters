@@ -1,20 +1,54 @@
 #pragma once
-#include "HardArray.h"
+#include "DynamicArray.h"
 
 #define MAX_LETTERS 27
 
 class Node {
-public:
+private:
 	// available children nodes
-	HardArray<Node*, MAX_LETTERS> letters;
-	char key = 0;
+	DynamicArray<Node*> *letters;
+	char key;
 
 	// if went string has a meaning
-	bool makeSense = false;
+	bool makeSense;
+
+public:
 
 	Node() {
-		for (int i = 0; i < MAX_LETTERS; i++) {
-			letters.setAt(i, nullptr);
-		}
+		letters = new DynamicArray<Node*>();
+		key = 0;
+		makeSense = false;
+		letters->resize(MAX_LETTERS);
+
+		for (int i = 0; i < MAX_LETTERS; i++) letters->setAt(i, nullptr);
 	}
+
+	~Node() {
+		delete[] letters;
+	}
+
+	Node* getLetterAt(int ind) {
+		return letters->getAt(ind);
+	}
+
+	void setLetterAt(int ind, Node* pointToLetter) {
+		letters->setAt(ind, pointToLetter);
+	}
+
+	void setKey(char key) {
+		this->key = key;
+	}
+
+	void setSense(bool sense) {
+		this->makeSense = sense;
+	}
+
+	char getKey() {
+		return this->key;
+	}
+
+	bool getSense() {
+		return this->makeSense;
+	}
+
 };

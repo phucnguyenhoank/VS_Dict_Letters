@@ -22,7 +22,10 @@ public:
 	LettersTree(std::string wordSouce) {
 		root = new Node();
 		std::ifstream fin(wordSouce);
-		if (fin.fail()) return;
+		if (fin.fail()) {
+			std::cout << "LettersTree, constructor.\n";
+			return;
+		}
 
 		std::string input;
 		while (std::getline(fin, input)) {
@@ -30,7 +33,6 @@ public:
 		}
 
 		fin.close();
-
 	}
 
 	// ------------------------------------ ADD -----------------------------------------
@@ -43,12 +45,11 @@ public:
 		// neu khong them thi tro vao nut tiep theo roi tra ve
 		// neu co them
 		// them vao nut can them roi tra ve dia chi nut vua them
-		Node* nextNode = r->letters.getAt(singleLetter - 'a' + 1);
+		Node* nextNode = r->getLetterAt(singleLetter - 'a' + 1);
 		if (nextNode == nullptr) {
 			Node* newNode = new Node();
-			r->letters.setAt(singleLetter - 'a' + 1, newNode);
-
-			newNode->key = singleLetter;
+			newNode->setKey(singleLetter);
+			r->setLetterAt(singleLetter - 'a' + 1, newNode);
 			return newNode;
 		}
 		return nextNode;
@@ -62,17 +63,16 @@ public:
 		char fir = word[0];
 		word.erase(0, 1);
 
-		Node* nextNode = root->letters.getAt(fir - 'a' + 1);
+		Node* nextNode = root->getLetterAt(fir - 'a' + 1);
 
 		if (nextNode == nullptr) {
 			Node* newNode = new Node();
-			root->letters.setAt(fir - 'a' + 1, newNode);
-			newNode->key = fir;
+			root->setLetterAt(fir - 'a' + 1, newNode);
+			newNode->setKey(fir);
 		}
 
 
-
-		Node* tempRoot = root->letters.getAt(fir - 'a' + 1);
+		Node* tempRoot = root->getLetterAt(fir - 'a' + 1);
 
 		while (!word.empty()) {
 			fir = word[0];
@@ -80,7 +80,7 @@ public:
 			tempRoot = addLetter(tempRoot, fir);
 		}
 
-		tempRoot->makeSense = true;
+		tempRoot->setSense(true);
 	}
 
 	// ---------------------------------- REMOVE ----------------------------------
@@ -93,10 +93,10 @@ public:
 		while (word.size()) {
 			fir = word[0];
 			word.erase(0, 1);
-			nextNode = nextNode->letters.getAt(fir - 'a' + 1);
+			nextNode = nextNode->getLetterAt(fir - 'a' + 1);
 		}
 
-		nextNode->makeSense = 0;
+		nextNode->setSense(false);
 
 	}
 
@@ -109,11 +109,11 @@ public:
 			fir = word[0];
 			word.erase(0, 1);
 
-			nextNode = nextNode->letters.getAt(fir - 'a' + 1);
+			nextNode = nextNode->getLetterAt(fir - 'a' + 1);
 			if (nextNode == nullptr) return false;
 		}
 
-		if (!nextNode->makeSense) return false;
+		if (!nextNode->getSense()) return false;
 		return true;
 
 	}
@@ -122,12 +122,12 @@ public:
 
 	void show(Node* r) {
 		if (r) {
-			if (r->makeSense) std::cout << "ms-";
-			std::cout << r->key << "\n";
+			if (r->getSense()) std::cout << "ms-";
+			std::cout << r->getKey() << "\n";
 
 			for (int i = 0; i < MAX_LETTERS; i++) {
-				if (r->letters.getAt(i)) {
-					show(r->letters.getAt(i));
+				if (r->getLetterAt(i)) {
+					show(r->getLetterAt(i));
 				}
 			}
 		}
@@ -135,16 +135,17 @@ public:
 	void show() {
 		this->show(root);
 	}
+
 	// NHƯỢC ĐIỂM:
 	// nếu Node hiện tại mà r đang trỏ đến makeSence thì không thể xuất được
 	void crushWords(Node* r, std::string& mean) {
 		for (int i = 0; i < MAX_LETTERS; i++) {
-			if (r->letters.getAt(i)) {
-				mean += r->letters.getAt(i)->key;
-				if (r->letters.getAt(i)->makeSense) {
+			if (r->getLetterAt(i)) {
+				mean += r->getLetterAt(i)->getKey();
+				if (r->getLetterAt(i)->getSense()) {
 					std::cout << mean << "\n";
 				}
-				crushWords(r->letters.getAt(i), mean);
+				crushWords(r->getLetterAt(i), mean);
 				mean.pop_back();
 			}
 		}
@@ -160,9 +161,10 @@ public:
 		char fir = letrs[0];
 		letrs.erase(0, 1);
 
-		Node* nextNode = r->letters.getAt(fir - 'a' + 1);
+		Node* nextNode = r->getLetterAt(fir - 'a' + 1);
 		return track(nextNode, letrs);
 	}
+
 	void crushWords(std::string missedWord) {
 		std::string mean = missedWord;
 
@@ -170,7 +172,7 @@ public:
 		if (beginPoint == nullptr) return;
 
 		// khắc mục nhược điểm của crushWords bên dưới
-		if (beginPoint->makeSense) std::cout << mean << "\n";
+		if (beginPoint->getSense()) std::cout << mean << "\n";
 		crushWords(beginPoint, mean);
 	}
 
