@@ -21,6 +21,21 @@ public:
 		showVieMeaning();
 	}
 
+	int getLen() {
+		return eng.size();
+	}
+
+	void showMissingWord(int missingPos) {
+		for (int i = 0; i < eng.size(); i++) {
+			if (i == missingPos) {
+				std::cout << "_";
+			}
+			else {
+				std::cout << eng[i];
+			}
+		}
+	}
+
 	Vocab() {
 
 	}
@@ -33,7 +48,7 @@ public:
 };
 
 // this class contains hash table which map english and its meanings
-class DictEng {
+class EngVieDict {
 private:
 	DynamicArray<Vocab*> *vocabs;
 	LettersTree* lettersTree;
@@ -47,7 +62,7 @@ public:
 		return sum % DEFAULT_MAX_VOCAB;
 	}
 
-	DictEng() {
+	EngVieDict() {
 		vocabs = new DynamicArray<Vocab*>();
 		vocabs->resize(DEFAULT_MAX_VOCAB);
 		lettersTree = new LettersTree();
@@ -78,7 +93,7 @@ public:
 	}
 
 	// Like read from file
-	DictEng(std::string fileName) {
+	EngVieDict(std::string fileName) {
 		vocabs = new DynamicArray<Vocab*>();
 		vocabs->resize(DEFAULT_MAX_VOCAB);
 		lettersTree = new LettersTree();
@@ -109,7 +124,7 @@ public:
 		fin.close();
 	}
 
-	~DictEng() {
+	~EngVieDict() {
 		for (int i = 0; i < DEFAULT_MAX_VOCAB; i++) {
 			delete vocabs->getAt(i);
 		}
@@ -240,7 +255,7 @@ public:
 	}
 
 	void addToPracticeList(std::string fileName) {
-		DictEng* pracList = new DictEng(fileName);
+		EngVieDict* pracList = new EngVieDict(fileName);
 
 		std::string userWord = this->suggestWord();
 		Vocab* needToAdd = searchWord(userWord);
@@ -273,7 +288,7 @@ public:
 	}
 
 	void removeFromPracticeList(std::string fileName) {
-		DictEng* pracList = new DictEng(fileName);
+		EngVieDict* pracList = new EngVieDict(fileName);
 
 		std::string userWord = pracList->suggestWord();
 			
@@ -308,11 +323,3 @@ public:
 	}
 
 };
-
-
-/*
-
-VẤN ĐỀ TRÙNG LẶP VÀ HỆ THỐNG HÓA
-
-
-*/

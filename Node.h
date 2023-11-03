@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 #include "DynamicArray.h"
 
+// có thời gian thì nên sửa thành 26 để tối ưu
 #define MAX_LETTERS 27
 
 class Node {

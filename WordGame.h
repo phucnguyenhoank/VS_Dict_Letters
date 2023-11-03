@@ -1,13 +1,12 @@
 #pragma once
 
-#include "DictEng.h"
+#include "EngVieDict.h"
 
-class WordQuizGame: public DictEng {
+class WordGame: public EngVieDict {
 public:
 	// ----------------------------------------------- ADVANCED -------------------------------------------
 	// 
-	
-	// CAN SUA LAI
+
 	void playWordGame() {
 
 		DynamicArray<Vocab*>* pracWords = prepare("PracticeWords.txt");
@@ -25,6 +24,8 @@ public:
 
 	}
 
+	// read the list of vocabs, add three default vocabs and return a pointer has DynamicArray<Vocab*>* type
+	// return null if there is only three default vocabs in the readed list
 	DynamicArray<Vocab*>* prepare(std::string fileName) {
 		DynamicArray<Vocab*>* pracWords = getPracticeWords("PracticeWords.txt");
 		pracWords->add(new Vocab("joy", "a feeling of pleasure", "niem vui"));
@@ -33,6 +34,7 @@ public:
 		if (pracWords->getSize() == 3) return nullptr;
 		return pracWords;
 	}
+
 
 	int play(DynamicArray<Vocab*>* pracWords) {
 		std::random_device rd;
@@ -110,6 +112,7 @@ public:
 		std::cout << "-----------------------------------\n";
 	}
 
+	// anouce the result and adjust the practice vocab list
 	void wrapUp(int rightAnswer, int totalQuestions) {
 		double result = double(rightAnswer) / totalQuestions;
 		std::cout << "You was right " << result * 100 << "% of the total questions.\n";
@@ -136,4 +139,50 @@ public:
 		}
 
 	}
+
+	void playWordGame2() {
+		DynamicArray<Vocab*>* pracWords = prepare("PracticeWords.txt");
+		if (pracWords == nullptr) {
+			std::cout << "Have not any words in the practice list yet.\n";
+			return;
+		}
+
+		int numRightAnswer = play2(pracWords);
+		wrapUp(numRightAnswer, pracWords->getSize() - 3);
+	}
+
+	
+	int play2(DynamicArray<Vocab*>* pracWords) {
+		std::random_device rd;
+		std::mt19937 ge(rd());
+		
+		int numRightAnswer = 0;
+		// in this game, there is no need to use the three default words
+		for (int i = 0; i < pracWords->getSize() - 3; i++) {
+			std::uniform_int_distribution<int> dis(0, pracWords->getAt(i)->getLen() - 1);
+			int missingPosInTheWord = dis(ge);
+			pracWords->getAt(i)->showMissingWord(missingPosInTheWord);
+			std::cout << "\n";
+
+			std::cout << "the missing letter is?: ";
+			char missingLetter;
+			std::cin >> missingLetter;
+			std::cin.ignore();
+			// exeption has at every user's input
+
+			if (missingLetter == pracWords->getAt(i)->eng[missingPosInTheWord]) {
+				std::cout << "RIGHT\n";
+				numRightAnswer++;
+			}
+			else {
+				std::cout << "WRONG\n";
+			}
+			std::cout << "------------------------\n";
+
+		}
+
+		return numRightAnswer;
+	}
+
+
 };

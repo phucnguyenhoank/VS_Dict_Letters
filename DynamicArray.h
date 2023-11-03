@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 template<class T>
 class DynamicArray {
@@ -23,7 +24,7 @@ public:
 		return arr[ind];
 	}
 
-	
+
 	void resize(int newSize) {
 		int oldSize = size;
 		size = newSize;
@@ -31,19 +32,13 @@ public:
 		T* needToDel = arr;
 		arr = new T[newSize];
 
+		int minSize = (oldSize < newSize) ? oldSize : newSize;
 
-		if (newSize < oldSize) {
-			for (int i = 0; i < newSize; i++) {
-				arr[i] = needToDel[i];
-			}
+		for (int i = 0; i < minSize; i++) {
+			arr[i] = needToDel[i];
 		}
-		else {
-			for (int i = 0; i < oldSize; i++) {
-				arr[i] = needToDel[i];
-			}
-			for (int i = oldSize; i < newSize; i++) {
-				arr[i] = T();
-			}
+		for (int i = oldSize; i < newSize; i++) {
+			arr[i] = T();
 		}
 
 		delete[] needToDel;
@@ -71,5 +66,23 @@ public:
 		arr = new T[0];
 		size = 0;
 	}
+
+	void print(char end = ' ', bool haveEffect = true) {
+		if (haveEffect) {
+			std::cout << "[";
+			for (int i = 0; i < this->getSize(); i++) {
+				std::cout << this->getAt(i) << ", ";
+			}
+			std::cout << "\b\b]" << end;
+		}
+		else {
+			for (int i = 0; i < this->getSize(); i++) {
+				std::cout << this->getAt(i) << " ";
+			}
+			std::cout << end;
+
+		}
+	}
+
 
 };
