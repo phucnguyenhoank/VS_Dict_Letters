@@ -3,9 +3,13 @@
 
 int main() {
 
+	/*EngVieDict* d = new EngVieDict();
+	d->showHashTable();
+	std::cout << "NUM:" << d->getNumOfWord() << "\n";*/
+	
 	WordGame* wg = new WordGame();
 
-	std::string userCommand = "help";
+	std::string userCommand = "h";
 
 	while (userCommand.compare("0")) {
 		if (userCommand.compare("1") == 0) {
@@ -27,15 +31,21 @@ int main() {
 		}
 		else if (userCommand.compare("4") == 0) {
 			system("cls");
-			wg->addToPracticeList("PracticeWords.txt");
-			std::cout << "Add to PracticeWords Completely!!\n";
+			int res = wg->addToPracticeList("PracticeWords.txt");
+			if (res == 1) std::cout << "Added completely.\n";
+			else if (res == 2) std::cout << "existing word.\n";
+			else if (res == 3) std::cout << "NO existing word.\n";
+			else std::cout << "Failed adding.\n";
 		}
 		else if (userCommand.compare("5") == 0) {
 			system("cls");
-			wg->removeFromPracticeList("PracticeWords.txt");
-			std::cout << "Remove from PracticeWords Completely!!\n";
+			int res = wg->removeFromPracticeList("PracticeWords.txt");
+			if (res == 1) std::cout << "Remove completely.\n";
+			else if (res == 2) std::cout << "NO existing word.\n";
+			else if (res == 0) std::cout << "Empty practice list.\n";
+			else std::cout << "Failed removing.\n";
 		}
-		else if (userCommand.compare("help") == 0 || userCommand.compare("?") == 0) {
+		else if (userCommand.compare("h") == 0 || userCommand.compare("?") == 0) {
 			std::cout << "-------------------------------------------------------------\n";
 			std::cout << "1 -> Look Up a Word\n";
 			std::cout << "2 -> Play Quiz Game\n";
@@ -52,13 +62,17 @@ int main() {
 		}
 		else {
 			std::cout << "wrong: INVALID command\n";
-			std::cout << "\'help\' or \'?\' for help\n";
+			std::cout << "\'h\' or \'?\' for help\n";
 		}
 
 		std::cout << "your command: ";
 		std::getline(std::cin, userCommand);
 	}
-	std::cout << "BYE BYE :((\n";
+
+	std::cout << " -------------\n";
+	std::cout << "  BYE BYE :(( \n";
+	std::cout << " -------------\n";
+	
 
 	return 0;
 }

@@ -141,13 +141,13 @@ public:
 		// '\n': 10
 		
 		std::string userWord;
-		char userChar = 14;
+		char userChar = 14; // just a valid num
 
 		int x, y;
 		do {
 			system("cls");
 			std::cout << "your word: " << userWord;
-			getOldXY(x, y);
+			getCurrentXY(x, y);
 			std::cout << "\n";
 			std::cout << "---------------\n";
 			std::cout << "valid words:\n";
@@ -155,14 +155,12 @@ public:
 			gotoxy(x, y);
 			userChar = _getch();
 
-			// xu ly cac phim rac
-			if (userChar == 8) {
+			if (userChar < 8 || userChar>122) continue;
+			else if (userChar == 8) {
 				if (userWord.size() == 0) continue;
 				userWord.pop_back();
 			}
-			else if (userChar >= 97 && userChar <= 122) {
-				userWord += userChar;
-			}
+			else if (userChar >= 97 && userChar <= 122) userWord += userChar;
 			else if (userChar >= 65 && userChar <= 90) {
 				userChar += 32;
 				userWord += userChar;
@@ -181,14 +179,16 @@ public:
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	}
 
-	void getOldXY(int& oldX, int& oldY) {
+	void getCurrentXY(int& x, int& y) {
 		CONSOLE_SCREEN_BUFFER_INFO csbi;
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-		oldX = csbi.dwCursorPosition.X;
-		oldY = csbi.dwCursorPosition.Y;
+		x = csbi.dwCursorPosition.X;
+		y = csbi.dwCursorPosition.Y;
 	}
 
 	// --------------------------------------------------- CHECKING -----------------------------------------
+
+
 	bool haveWord(std::string word) {
 		for (int i = 0; i < vocabs->getSize(); i++) {
 			if (vocabs->getAt(i) != nullptr && vocabs->getAt(i)->eng.compare(word) == 0) {
@@ -198,7 +198,20 @@ public:
 		return false;
 	}
 
+	// ERROR: if use vocabs->getSize() instead of DEFAULT_MAX_VOCAB without knowing the reason
+	int getNumOfWord() {
+		int num = 0;
+		for (int i = 0; i< DEFAULT_MAX_VOCAB; i++) {
+			if (vocabs->getAt(i) != nullptr) {
+				num++;
+			}
+		}
+		return num;
+	}
+
 	// -------------------------------------------------- DISPLAY --------------------------------------------
+
+
 	void lookUp() {
 		std::string userWord = suggestWord();
 		int ind = hashWord(userWord);
@@ -222,7 +235,8 @@ public:
 	// ---------------------------------------------------- SEARCH ---------------------------------------------
 
 	// return referrence pointer is pointing to a Vocab
-	Vocab* searchWord(std::string engWord) {
+	// return null if it does not exitst
+	const Vocab* searchWord(std::string engWord) {
 		int ind = hashWord(engWord);
 		while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->eng.compare(engWord) != 0) {
 			ind = (ind + 1) % DEFAULT_MAX_VOCAB;
@@ -259,43 +273,54 @@ public:
 
 	// -------------------------------------------- ADD -----------------------------------------
 
-	void addWord(std::string engWord, std::string engMeaning, std::string vieMeaning) {
-		if (haveWord(engWord)) return;
+	// 1: complete
+	// 2: the wanted-word already exists in the list
+	int addWord(std::string engWord, std::string engMeaning, std::string vieMeaning) {
+		if (haveWord(engWord)) return 2;
 
 		int ind = hashWord(engWord);
 
 		Vocab* vcb = new Vocab(engWord, engMeaning, vieMeaning);
-
 		while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->eng.compare(vcb->eng) != 0) {
 			ind = (ind + 1) % DEFAULT_MAX_VOCAB;
 		}
 
 		vocabs->setAt(ind, vcb);
 		lettersTree->addLetter(vcb->eng);
-
+		return 1;
 	}
 
-	void addToPracticeList(std::string fileName) {
+	// 1: complete
+	// 2: the wanted-word already exists in the list
+	// 3: don't have the wanted-word in the list
+	int addToPracticeList(std::string fileName) {
 		EngVieDict* pracList = new EngVieDict(fileName);
 
-		std::string userWord = this->suggestWord();
-		Vocab* needToAdd = searchWord(userWord);
+		std::string userWord = suggestWord();
+		const Vocab* needToAdd = searchWord(userWord);
 
-		if (needToAdd && !pracList->haveWord(userWord)) {
+		if (pracList->haveWord(userWord)) return 2;
+
+		if (needToAdd) {
 			pracList->addWord(needToAdd->eng, needToAdd->engMean, needToAdd->vieMean);
+			pracList->writeToFile(fileName);
+			delete pracList;
+			return 1;
 		}
 		else {
-			std::cout << "\'" << userWord << "\'" << " already exist or unavailable.\n";
+			pracList->writeToFile(fileName);
+			delete pracList;
+			return 3;
 		}
-
-		pracList->writeToFile(fileName);
-		delete pracList;
 	}
 
 	// -------------------------------------------- REMOVE ---------------------------------------
-
-	void removeWord(std::string engNeedToDelWord) {
-		if (!haveWord(engNeedToDelWord)) return;
+	
+	// (no happen): 0: list is empty 
+	// 1: complete
+	// 2: don't have the wanted-word in the list
+	int removeWord(std::string engNeedToDelWord) {
+		if (!haveWord(engNeedToDelWord)) return 2;
 
 		int ind = hashWord(engNeedToDelWord);
 
@@ -306,22 +331,27 @@ public:
 		delete needToDel;
 		vocabs->setAt(ind, nullptr);
 		lettersTree->remove(engNeedToDelWord);
+
+		return 1;
 	}
 
-	void removeFromPracticeList(std::string fileName) {
+	// 0: list is empty
+	// 1: complete
+	// 2: don't have the wanted-word in the list
+	int removeFromPracticeList(std::string fileName) {
 		EngVieDict* pracList = new EngVieDict(fileName);
 
+		if (pracList->getNumOfWord()==0) return 0;
+
 		std::string userWord = pracList->suggestWord();
-			
-		if (pracList->haveWord(userWord)) {
-			pracList->removeWord(userWord);
-		}
-		else {
-			std::cout << "\'" << userWord << "\'" << " is not in the practice-word list.\n";
-		}
+		
+		if (pracList->haveWord(userWord)) pracList->removeWord(userWord);
+		else return 2;
 
 		pracList->writeToFile(fileName);
 		delete pracList;
+
+		return 1;
 	}
 
 	void writeToFile(std::string fileName) {
