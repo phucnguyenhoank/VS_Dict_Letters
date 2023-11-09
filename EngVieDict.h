@@ -3,6 +3,7 @@
 #include "LettersTree.h"
 #include <conio.h>
 #include <random>
+#include <windows.h>
 
 
 #define DEFAULT_MAX_VOCAB 101
@@ -142,14 +143,19 @@ public:
 		std::string userWord;
 		char userChar = 14;
 
+		int x, y;
 		do {
 			system("cls");
-			std::cout << "enter a word: " << userWord << "_\n";
-
+			std::cout << "your word: " << userWord;
+			getOldXY(x, y);
+			std::cout << "\n";
+			std::cout << "---------------\n";
+			std::cout << "valid words:\n";
 			if (userWord.size()) lettersTree->crushWords(userWord);
+			gotoxy(x, y);
 			userChar = _getch();
+
 			// xu ly cac phim rac
-			
 			if (userChar == 8) {
 				if (userWord.size() == 0) continue;
 				userWord.pop_back();
@@ -163,8 +169,23 @@ public:
 			}
 
 		} while (userChar != 13);
+		
 		system("cls");
 		return userWord;
+	}
+
+	void gotoxy(int x, int y) {
+		COORD coord;
+		coord.X = x;
+		coord.Y = y;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	}
+
+	void getOldXY(int& oldX, int& oldY) {
+		CONSOLE_SCREEN_BUFFER_INFO csbi;
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+		oldX = csbi.dwCursorPosition.X;
+		oldY = csbi.dwCursorPosition.Y;
 	}
 
 	// --------------------------------------------------- CHECKING -----------------------------------------

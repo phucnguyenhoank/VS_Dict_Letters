@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------------------
 
-Chương trình chưa hoàn thiện, còn nhiều lỗi tiềm ẩn, vấn đề hệ thống hóa và hiệu suất.
+Chương trình chưa hoàn thiện, còn nhiều lỗi tiềm ẩn, ngoại lệ, hệ thống hóa (tính sáng sủa và dễ hiểu), hiệu suất và giao diện người dùng.
 
 --------------------------------------------------------------------------------------------
 

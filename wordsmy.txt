@@ -1,48 +1,48 @@
 consent
-consent nghia tieng anh
-consent nghia tieng viet
-deliberately
-deliberately nghia tieng anh
-deliberately nghia tieng viet
+agreement, permit
+su ung thuan, dong y
+deliberate
+calculated, planned
+co y, chu tam
 prior
-prior nghia tieng anh
-prior nghia tieng viet
+previous, past, former
+truoc, tren, uu tien
 sense
-sense nghia tieng anh
-sense nghia tieng viet
+feeling, meaning, intelligence
+giac quan, y nghia
 civil
-civil nghia tieng anh
-civil nghia tieng viet
+public, political, polite
+(tinh) cong dan, le phep, lich su
 violate
-violate nghia tieng anh
-violate nghia tieng viet
+disobey, flout, spoil
+vi pham, xam pham
 congress
-congress nghia tieng anh
-congress nghia tieng viet
+council, meeting, assembly
+dai hoi, quoc hoi
 conference
-conference nghia tieng anh
-conference nghia tieng viet
+session, meeting, discussion
+hoi nghi
 strive
-strive nghia tieng anh
-strive nghia tieng viet
+struggle, do your best
+co gang, dau tranh
 medium
-medium nghia tieng anh
-medium nghia tieng viet
+intermediate, middle, communication channel
+trung binh, phuong tien
 horror
-horror nghia tieng anh
-horror nghia tieng viet
+fear, terror, revulsion
+kinh di, so hai
 expose
-expose nghia tieng anh
-expose nghia tieng viet
+reveal, uncover, disclose
+phoi bay, tiet lo
 somewhat
-somewhat nghia tieng anh
-somewhat nghia tieng viet
+slightly, a bit, to a certain extent
+hoi, mot chut
 witness
-witness nghia tieng anh
-witness nghia tieng viet
+observe, testify, see
+nhan chung, chung kien
 conservative
-conservative nghia tieng anh
-conservative nghia tieng viet
+traditional, cautious, resistant to change
+bao thu, than trong
 bargain
-bargain nghia tieng anh
-bargain nghia tieng viet
+deal, negotiate, agreement
+mac ca, thoa thuan
