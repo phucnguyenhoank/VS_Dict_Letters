@@ -1,269 +1,579 @@
-a
-about
-above
-access
-acept
-act
-add
-addict
-affect
-afford
-afraid
-after
-again
-agree
-ahead
-aid
-aim
-air
-all
-also
-alternate
+agriculture
+farming, cultivation
+nong nghiep
+adequate
+sufficent, enough
+du, day du
+admonition
+critism, scolding
+khuyen bao, khien trach
+antidote
+cure, remedy
+thuoc giai doc
+acquire
+obtain, gain, earn, achieve
+gianh, lay
 ambition
-amount
-amuse
-app
-apple
-arch
-array
-as
-asset
-at
-attitude
-author
+goal, purpose
+tham vong
+ambiguous
+unclear, uncertain
+mo ho
 available
-aware
-ban
-band
-base
-basket
-bed
-beat
-bend
-bite
-bond
-borrow
-by
-can
-carve
-case
-cd
-century
-cell
-chance
-climb
-come
-comment
-commit
-confess
-copy
-dance
-dark
-data
-date
-day
-deaf
-decoy
-defeat
-define
-dice
-die
-dinner
-do
-dodge
-double
-dress
-drink
-ear
-eat
-easy
-economy
-edge
-effect
-effort
-egg
-electricity
-element
-empty
-employ
-end
-enjoy
-energy
-equal
-error
-escape
-excess
-fan
-fall
-fast
-find
-fine
+accesible, obtainable 
+co san, co ich, co the dung
+allocate
+assign, issue, grant, hand out
+chi dinh, cap phat
+banish
+expel, exile, evict
+truc xuat, day ai
+breathtaking
+astonishing, amazing, wonderful
+ngoan muc
+blame
+accuse
+do toi, do loi
+blunt
+dull, worn
+cun
+brutal
+cruel, ruthless, merciless
+tan nhan, tan bao
+benign
+kind, warm, gentle
+nhe nhang, tu te
+beseech
+beg, ask for
+cau xin, can khan
+biscuit
+cookie
+banh quy
+bitter
+sharp, purgent taste, not sweet
+vi dang
+bliss
+joy, pleasure, estacy, euphoria
+chan phuc, hanh phuc
+consent
+agreement, permit
+su ung thuan, dong y
+deliberate
+calculated, planned
+co y, chu tam
+prior
+previous, past, former
+truoc, tren, uu tien
+sense
+feeling, meaning, intelligence
+giac quan, y nghia
+civil
+public, political, polite
+(tinh) cong dan, le phep, lich su
+violate
+disobey, flout, spoil
+vi pham, xam pham
+congress
+council, meeting, assembly
+dai hoi, quoc hoi
+conference
+session, meeting, discussion
+hoi nghi
+strive
+struggle, do your best
+co gang, dau tranh
+medium
+intermediate, middle, communication channel
+trung binh, phuong tien
+horror
+fear, terror, revulsion
+kinh di, so hai
+expose
+reveal, uncover, disclose
+phoi bay, tiet lo
+somewhat
+slightly, a bit, to a certain extent
+hoi, mot chut
+witness
+observe, testify, see
+nhan chung, chung kien
+conservative
+traditional, cautious, resistant to change
+bao thu, than trong
+bargain
+deal, negotiate, agreement
+mac ca, thoa thuan
+abuse
+corruption, crime, misconduct
+lam dung
+amuse
+charm, cheer, please
+lam vui, lam thich thu
+behalf
+favor, representation, viewpoint
+su thay mat, su nhan danh
+bury
+deposit, entomb, plant
+chon cat, chon lap, mai tang
+decline
+fall, failure, flop
+suy sup, su suy tan
+delicate
+soft, touchy
+thanh nha, te nhi, kho xu
+duty
+obligation, responsibility
+bon phan, phan su, trach nhiem
+elect
+chosen, vote, accept
+bau, chon
+entitle
+designate, call, baptize
+cho quyen (lam gi do), cho tieu de
+extraodinary
+amazing, surprising
+phi thuong, dac biet
+faith
+truth, belief, hope
+su tin tuong, niem tin, duc tin
+genuine
+absolute, pure, honest
+that, xac thuc
+hollow
+arched, cleft, curved
+gia doi, gia tao, rong tuech
+infect
+affect, poison, touch
+tiem nhiem, lay nhiem
+interval
+interruption, layoff, gap
+khoang (thoi gian, khong gian)
+pathetic
+pitifull, miserable, sad
+tham hai, dang thuong hai
+catastrophe
+disater, calamity, tragedy
+tham hoa, thien tai
+tragedy
+devastation, mishap, catastrophe
+bi kich
+disrupt
+disturb, upset
+lam gian doan
+impede
+obstacle, block
+can tro, tro ngai
+famine
+hunger, food shortage
+nan doi
+irritate
+aggravate, bug
+kich thich, gay kho chiu
+vital
+important, essential, crucial
+thiet yeu
+shortage
+lack of, scarcity
+thieu thon
+obscure
+uncertain, unclear
+kho hieu, mo ho
+gesture
+signal, indication
+cu chi, dieu bo
+sluggish
+lazy, inactive
+cham chap, luoi bieng
+dynamic
+active
+dong, nang dong
+static
+stable, steady
+tinh
 fear
-feel
-fetch
-fold
-folder
-fun
-fund
-float
-fly
-gain
-gate
-gap
-general
-generous
-genius
-genre
-get
-go
-goal
-good
-guard
-guest
-guess
-guide
-guilt
-half
-hall
-hand
-height
-hello
-here
-hide
-high
-hit
-honnest
-hour
-huge
-hungry
-hurt
-idea
-idol
-if
-ill
-in
-index
-island
-issue
-jacket
-jar
-jet
-jewlery
-judge
-juice
-junk
+terror, distress
+so hai, lo so
+anxiety
+concern, worry, unease
+lo lang, lo ngai
+haunt
+spook
+am anh
+jealous
+envious, desirous
+ghen ti
+greed
+desire, urge, need
+tham lam
+wrath
+anger, rage
+thinh no, phan no
+hilarious
+humorous, funny
+hai huoc, vui nhon
+zealous
+passonate, enthusiastic
+hang hai, nhiet tinh
+dawn
+sunrise, twilight
+binh minh
+dust
+sunset
+hoang hon
+scenery
+view, landscape
+phong canh
+regret
+mourn, weep, fret
+hoi han
+explore
+traverse, tour
+kham pha
+prosper
+succeed
+thinh phuong, hung thinh
+thrive
+grow, expand
+noi day, phat trien
+quality
+standard, grade
+chat luong
+quantity
+ammount, number
+so luong
+mesmerise
+hypnotise, in trance
+thoi mien, me hoac
+shock
+amaze, suprise, stun
+soc, khinh ngac
+fluctuate
+differ, shift, swing
+dao dong, luong lu
+hope
+expect, trust, wish
+hi vong, ky vong
+despair
+hopeless, misery
+tuyet vong
+pain
+hurt, agony
+noi dau
+famous
+popular, well-know
+noi tieng
+feat
+achievement, accomplishment
+ky tich
+flatulent
+pride, self-respect
+kieu cang, tu phu
+flexible
+bendy, 
+linh hoat, deo dai
+futile
+useless, helpless
+vo ich, vo dung
+gory
+bloody
+mau me
+guava
+a fruit
+trai oi
+guilible
+trusting, naive
+de tin
+grudge
+anger, hatred
+moi thu han
+heinous
+hedious, disgusting
+gom ghiec, kinh tom
+fog
+haze, smoke
+khoi, suong mu
+hiatus
+pause, stop, break
+bi gian doan
+honor
+grace, glory
+vinh du, niem vinh hanh
+humility
+modesty, diffidence, humbleness
+khiem ton
+idle
+lazy, indolent, inert
+nhan roi, luoi bieng
+imbecile
+stupid, silly, dumb, fool, idiot, moron
+ngu
+immature
+unripe, undeveloped
+chua truong thanh
+immense
+huge, ginormous, humongus, gigantic, massive, enormous, big
+bao la, menh mong, rong lon
+morality
+goodness, uprightness, integrity, chasity
+dao duc
+imply
+indirect, hinted, implicit
+bao ham, ngu y
+inevitable
+unavoidable, inescapable, unpreventable, inexorable
+khong the tranh khoi
+innate
+natural, built-in
+bam sinh
+keen
+acute, sharp, eager, passionate
+sac sao, nhiet tam
+jest
+joke, playful, tease
+tro dua
+jeopardy
+danger, peril, at risk
+nguy co
 just
-justice
-keep
-kick
-kid
-kind
-knight
-knive
-know
-land
-languague
-leak
-leave
-left
-lend
-let
-live
-llama
-look
-love
-low
-map
-man
-maybe
-meet
-me
-moon
-money
-month
-need
-needle
-net
-no
-nod
+fair, unbiased
+chi, dung, chinh
+lust
+desire, craving, urge
+ham muon
+legible
+readable, clear
+de doc, doc duoc
+liable
+responsible, accountable
+chiu trach nhiem
+loathe
+dislike, hate, despise
+khong ua, tom
+lousy
+awful, terrible
+de tien, toi te
+maintain
+keep, preserve, conserve, sustain
+duy tri, bao ton
+malice
+spite, hostility, hatred
+ac tam, ac y
+menace
+threat, bully, intimidate
+su de doa, doa nat
+mirage
+illusion, delusion, halucination, fantasy
+ao anh
+mischief
+evil, illness
+tinh nghich, lau ca
+mundane
+dull, boring, tiresome
+tam thuong, thuoc ve tran the
+negate
+nullify, invalidate
+phu nhan, choi
+nihility
+nothingness, nonexistence
+su hu vo
+nochalant
+calm, collected, indifferent
+tho o
+numb
+stunned, senseless
+te liet
+oblige
+bind, force
+bat buoc
+oblivion
+forgetfulness, ignorance
+su lang quen
+obscene
+indecent, lewd, vulgar
+tuc tiu
 odd
-of
-old
-on
-open
-option
-origin
-os
-pan
-paste
-pen
-pedal
-pet
-pin
-post
-pull
-push
-queue
-quest
-quick
-quizz
-rat
-ray
-rent
-right
-ring
-roll
-run
-sad
-say
-seat
-see
-seek
-send
-sit
-sip
-soak
-slow
-speak
-speed
-talk
-tall
-tend
-tent
-to
-tool
-tooth
-tonight
-undo
-until
-up
+strange, weird, unusual
+le, du, la
+ominous
+sinistrous, sinister, dark, gloomy
+bat thuong
+oppose
+disaprove, prevent
+phan doi
+paradise
+heaven, holy
+thien duong
+paradox
+constradiction, anomaly, conflict
+nghich ly
+peevish
+sorrowful, fretful
+au sau, gat gong
+pensive
+reflective, thinking, absorbed
+suy ngam, tram tu
+penalty
+punishment, fine, forfeit
+hinh phat, su phat
+perish
+croak, bite the dust, die
+tan bien, diet vong
+phobia
+scare, fear, affraid of
+noi so
+plead
+beg, beseech, call on
+bien ho, vien co
+preach
+sermonize
+thuyet giao
+pressure
+force, constrain
+ap luc, suc ep
+prestigious
+respected, reputable, honored
+uy tin
+pride
+dignity, ego, self-respect
+tu cao, kieu hanh
+principal
+chief, leader, manager
+hieu truong
+principle
+fundamental, theory, idea
+nguyen tac, nguyen ly
+reflect
+cerebrate, think about
+phan chieu, phan anh
+reflex
+react, instinct
+phan xa
+reluctant
+unwilling, resisting
+mien cuong, e ngai
+remain
+leftover, persist, abide
+du thua, con lai
+renovate
+rebuild, modify, make over
+cai tien, cai tao
+resolve
+settle, sort out, work out, fix
+giai quyet, phan giai
+restrain
+prevent, stop
+kiem che, giam cam
+sane
+rational, stable, normal
+tinh tao, co li tri
+satire
+mockery, ridicule, sarcasm
+cham biem, che nhao, mia mai
+sacred
+holy, blest
+linh thieng
+script
+text, libretto, dialogue
+kich ban
+sedulous
+assiduous, hard-working, dilligent, studious
+sieng nang, cham chi
+skill
+expertise, ability, mastery
+ky nang
+seize
+grap, snatch, grip, take
+nam bat, chiem, doat
+stoic
+patient
+kien nhan, khac ky
+sublime
+exalted, noble, glorious
+tuyet voi, cao ca
+supreme
+top, prime, grand
+toi cao, toi thuong
+swear
+promise, cursing
+hua, chui the
+syntax
+pre-formed sentence
+cu phap
+tedious
+dull, boring, dry
+te nhat, buon chan
+thief
+burglar, robber, mugger, yegg
+ten cuop
+threat
+warning, menacing
+moi nguy, moi de doa
+thread
+strain, plot, subject
+soi chi, chu de
+tie
+equal, bind, attach, restain
+hoa, buot, cot, cai ca vat
+tolerate
+forgive, endure
+tha thu, khoan dung, chiu
+unique
+special, particular, distinctive
+doc nhat, doc dao
+utility
+usefulness, benefit
+cong dung, tinh loi ich 
 update
-upset
-value
-vase
-vet
-venue
-very
-via
-wall
-want
-wave
-wet
-what
-when
-which
-who
-why
-will
-witch
-with
-xylophone
-year
-yet
-yes
-you
-your
-zap
-zero
-zinc
-zoo
+renovate, upgrade
+cap nhat
+upgrade
+improve, touch up
+nang cap
+viable
+possible, practical, feasible
+kha thi
+vicinity
+region, zone, surrounding
+lan can, ke can
+vigilant
+observant, alert, attentive
+canh giac, can than
+vile
+foul, odious, horrible
+hen ha, de tien
+virtue
+goodness, righteousness, morality
+duc hanh
+visage
+the look of a person's face
+ve mat, sac mat
+viscous
+sticky, clingy, slimy
+nhot
+vivid
+lively, radiant, flamboyant
+song dong, linh dong
+wane
+diminish, decrease, disapear
+tan lui, het thoi
+wicked
+shady, mean, sinful, evil
+doc ac, hung ac
+wilt
+wither, die
+heo, tan rui
+wistful
+regretful, yearing, nostalgic
+hoai niem, tuong nho
+wrap
+wind, pack up
+bao boc, dong goi
+yeast
+fermentation
+men ruou bia
+yatch
+medium-sized sailboat
+thuyen buom
+yard
+flat empty area
+san, dam

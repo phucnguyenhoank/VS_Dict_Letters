@@ -5,17 +5,41 @@
 #include <random>
 #include <windows.h>
 
+#define ESC "\x1b"
+#define CSI "\x1b["
 
-#define DEFAULT_MAX_VOCAB 101
+// a prime number
+#define DEFAULT_MAX_VOCAB 401
 
 class Vocab {
+private:
+	std::string eng, engMeaning, vieMeaning;
 public:
-	std::string eng, engMean, vieMean;
+	std::string getEng() const {
+		return eng;
+	}
+	std::string getEngMeaning() const {
+		return engMeaning;
+	}
+	std::string getVieMeaning() const {
+		return vieMeaning;
+	}
+
+	void setEng(std::string eng) {
+		this->eng = eng;
+	}
+	void setEngMeaning(std::string engMeaning) {
+		this->engMeaning = engMeaning;
+	}
+	void setVieMeaning(std::string vieMeaning) {
+		this->vieMeaning = vieMeaning;
+	}
+
 	void showEngMeaning() {
-		std::cout << "English meaning: " << this->engMean << "\n";
+		std::cout << "eng-meaning: " << engMeaning << "\n";
 	}
 	void showVieMeaning() {
-		std::cout << "Vietnamese meaning: " << this->vieMean << "\n";
+		std::cout << "viet-meaning: " << vieMeaning << "\n";
 	}
 	void showBothMeaning() {
 		showEngMeaning();
@@ -40,10 +64,11 @@ public:
 	Vocab() {
 
 	}
-	Vocab(std::string eng, std::string engMean, std::string vieMean) {
+
+	Vocab(std::string eng, std::string engMeaning, std::string vieMeaning) {
 		this->eng = eng;
-		this->engMean = engMean;
-		this->vieMean = vieMean;
+		this->engMeaning = engMeaning;
+		this->vieMeaning = vieMeaning;
 	}
 	
 };
@@ -54,21 +79,62 @@ private:
 	DynamicArray<Vocab*> *vocabs;
 	LettersTree* lettersTree;
 
-public:
-	int hashWord(std::string w) {
-		int sum = 0;
-		for (int i = 0; i < w.size(); i++) {
-			sum += w[i] * (i + 1);
+protected:
+	// ---------------------------------------------------- SEARCH ---------------------------------------------
+
+	// return a reference pointer is pointing to a Vocab
+	// return null if it does not exist
+	const Vocab* searchWord(std::string engWord) {
+		int ind = hashWord(engWord);
+		while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->getEng().compare(engWord) != 0) {
+			ind = (ind + 1) % DEFAULT_MAX_VOCAB;
 		}
-		return sum % DEFAULT_MAX_VOCAB;
+		return vocabs->getAt(ind);
 	}
 
+	// read the list of words from "fileName"
+	// having using dynamic allocating
+	// return a pointer which is pointing to a DynamicArray<Vocab*>
+	// this function don't return null pointer
+	DynamicArray<Vocab*>* getPracticeWords(std::string fileName) {
+		DynamicArray<Vocab*>* prw = new DynamicArray<Vocab*>();
+
+		std::ifstream fin(fileName);
+		if (fin.fail()) {
+			std::cout << "getPracticeWords: failed in open file\n";
+			return prw;
+		}
+
+		std::string word;
+		while (std::getline(fin, word)) {
+			Vocab* vc = new Vocab();
+			vc->setEng(word);
+
+			std::getline(fin, word);
+			vc->setEngMeaning(word);
+
+			std::getline(fin, word);
+			vc->setVieMeaning(word);
+
+			prw->add(vc);
+
+		}
+		fin.close();
+		return prw;
+	}
+
+
+public:
+	
+	// --------------------------------------------- INITIALIZING --------------------------------------------
+
+	// read words from default source-word file: Words.txt
 	EngVieDict() {
 		vocabs = new DynamicArray<Vocab*>();
 		vocabs->resize(DEFAULT_MAX_VOCAB);
 		lettersTree = new LettersTree();
 
-		std::ifstream fin("wordsmy.txt");
+		std::ifstream fin("Words.txt");
 		if (fin.fail()) return;
 
 		std::string temp;
@@ -76,24 +142,25 @@ public:
 			int ind = hashWord(temp);
 
 			Vocab* vcb = new Vocab();
-			vcb->eng = temp;
+			vcb->setEng(temp);
 			std::getline(fin, temp);
-			vcb->engMean = temp;
+			vcb->setEngMeaning(temp);
 			std::getline(fin, temp);
-			vcb->vieMean = temp;
+			vcb->setVieMeaning(temp);
 
-			while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->eng.compare(vcb->eng) != 0) {
+			while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->getEng().compare(vcb->getEng()) != 0) {
 				ind = (ind + 1) % DEFAULT_MAX_VOCAB;
 			}
 
 			vocabs->setAt(ind, vcb);
-			lettersTree->addLetter(vcb->eng);
+			lettersTree->addLetter(vcb->getEng());
 
 		}
 		fin.close();
 	}
 
-	// Like read from file
+	// read words from a specific file
+	// warning: file must has a suitable structure
 	EngVieDict(std::string fileName) {
 		vocabs = new DynamicArray<Vocab*>();
 		vocabs->resize(DEFAULT_MAX_VOCAB);
@@ -107,19 +174,19 @@ public:
 			int ind = hashWord(temp);
 
 			Vocab* vcb = new Vocab();
-			vcb->eng = temp;
+			vcb->setEng(temp);
 			std::getline(fin, temp);
-			vcb->engMean = temp;
+			vcb->setEngMeaning(temp);
 			std::getline(fin, temp);
-			vcb->vieMean = temp;
+			vcb->setVieMeaning(temp);
 
 
-			while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->eng.compare(vcb->eng) != 0) {
+			while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->getEng().compare(vcb->getEng()) != 0) {
 				ind = (ind + 1) % DEFAULT_MAX_VOCAB;
 			}
 
 			vocabs->setAt(ind, vcb);
-			lettersTree->addLetter(vcb->eng);
+			lettersTree->addLetter(vcb->getEng());
 
 		}
 		fin.close();
@@ -133,6 +200,8 @@ public:
 	}
 
 	// --------------------------------------------- EFFECT --------------------------------------------
+
+	// get user string concurrently with suggesting the words of the dictionary
 	std::string suggestWord() {
 		
 		// ENTER: 13
@@ -143,16 +212,17 @@ public:
 		std::string userWord;
 		char userChar = 14; // just a valid num
 
-		int x, y;
 		do {
 			system("cls");
 			std::cout << "your word: " << userWord;
-			getCurrentXY(x, y);
+			std::cout << ESC << "7";	// save current cursor's position
+			
 			std::cout << "\n";
 			std::cout << "---------------\n";
 			std::cout << "valid words:\n";
 			if (userWord.size()) lettersTree->crushWords(userWord);
-			gotoxy(x, y);
+			std::cout << ESC << "8";	// go to the place was saved
+			
 			userChar = _getch();
 
 			if (userChar < 8 || userChar>122) continue;
@@ -172,36 +242,24 @@ public:
 		return userWord;
 	}
 
-	void gotoxy(int x, int y) {
-		COORD coord;
-		coord.X = x;
-		coord.Y = y;
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-	}
 
-	void getCurrentXY(int& x, int& y) {
-		CONSOLE_SCREEN_BUFFER_INFO csbi;
-		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-		x = csbi.dwCursorPosition.X;
-		y = csbi.dwCursorPosition.Y;
-	}
+	// --------------------------------------------------- CHECKING and GETTING -----------------------------------------
 
-	// --------------------------------------------------- CHECKING -----------------------------------------
-
-
+	// return true if there is the word in the dictionary
 	bool haveWord(std::string word) {
 		for (int i = 0; i < vocabs->getSize(); i++) {
-			if (vocabs->getAt(i) != nullptr && vocabs->getAt(i)->eng.compare(word) == 0) {
+			if (vocabs->getAt(i) != nullptr && vocabs->getAt(i)->getEng().compare(word) == 0) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	// ERROR: if use vocabs->getSize() instead of DEFAULT_MAX_VOCAB without knowing the reason
+	// QUESTION: why do we use DEFAULT_MAX_VOCAB?
+	// return the current num of existing words of the dictionary
 	int getNumOfWord() {
 		int num = 0;
-		for (int i = 0; i< DEFAULT_MAX_VOCAB; i++) {
+		for (int i = 0; i < DEFAULT_MAX_VOCAB; i++) {
 			if (vocabs->getAt(i) != nullptr) {
 				num++;
 			}
@@ -209,67 +267,42 @@ public:
 		return num;
 	}
 
+	// return a hash key of a string
+	int hashWord(std::string w) {
+		int sum = 0;
+		for (int i = 0; i < w.size(); i++) {
+			sum += w[i] * (i + 1);
+		}
+		return sum % DEFAULT_MAX_VOCAB;
+	}
+
+
+
 	// -------------------------------------------------- DISPLAY --------------------------------------------
 
-
+	// get user string and show the meaning of that word if it has
 	void lookUp() {
 		std::string userWord = suggestWord();
 		int ind = hashWord(userWord);
 
-		while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->eng.compare(userWord) != 0) 
+		while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->getEng().compare(userWord) != 0)
 			ind = (ind + 1) % DEFAULT_MAX_VOCAB;
 
 		if (vocabs->getAt(ind) == nullptr) std::cout << "Don\'t have " << userWord << " in the dictionary\n";
 		else vocabs->getAt(ind)->showBothMeaning();
 	}
 
+	// show the whole keys and values of the dictionary, which is really a hash table
 	void showHashTable() {
 		for (int i = 0; i < DEFAULT_MAX_VOCAB; i++) {
 			if (vocabs->getAt(i) != nullptr) {
-				std::cout << "i=" << i << "; " << vocabs->getAt(i)->eng << "\n";
+				std::cout << "i=" << i << "; " << vocabs->getAt(i)->getEng() << "\n";
 			}
 		}
 	}
 
 
-	// ---------------------------------------------------- SEARCH ---------------------------------------------
-
-	// return referrence pointer is pointing to a Vocab
-	// return null if it does not exitst
-	const Vocab* searchWord(std::string engWord) {
-		int ind = hashWord(engWord);
-		while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->eng.compare(engWord) != 0) {
-			ind = (ind + 1) % DEFAULT_MAX_VOCAB;
-		}
-		return vocabs->getAt(ind);
-	}
-
-	DynamicArray<Vocab*>* getPracticeWords(std::string fileName) {
-		DynamicArray<Vocab*>* prw = new DynamicArray<Vocab*>();
-
-		std::ifstream fin(fileName);
-		if (fin.fail()) {
-			std::cout << "getPracticeWords\n";
-			return nullptr;
-		}
-
-		std::string word;
-		while (std::getline(fin, word)) {
-			Vocab* vc = new Vocab();
-			vc->eng = word;
-
-			std::getline(fin, word);
-			vc->engMean = word;
-
-			std::getline(fin, word);
-			vc->vieMean = word;
-
-			prw->add(vc);
-
-		}
-		fin.close();
-		return prw;
-	}
+	
 
 	// -------------------------------------------- ADD -----------------------------------------
 
@@ -281,12 +314,12 @@ public:
 		int ind = hashWord(engWord);
 
 		Vocab* vcb = new Vocab(engWord, engMeaning, vieMeaning);
-		while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->eng.compare(vcb->eng) != 0) {
+		while (vocabs->getAt(ind) != nullptr && vocabs->getAt(ind)->getEng().compare(vcb->getEng()) != 0) {
 			ind = (ind + 1) % DEFAULT_MAX_VOCAB;
 		}
 
 		vocabs->setAt(ind, vcb);
-		lettersTree->addLetter(vcb->eng);
+		lettersTree->addLetter(vcb->getEng());
 		return 1;
 	}
 
@@ -302,7 +335,7 @@ public:
 		if (pracList->haveWord(userWord)) return 2;
 
 		if (needToAdd) {
-			pracList->addWord(needToAdd->eng, needToAdd->engMean, needToAdd->vieMean);
+			pracList->addWord(needToAdd->getEng(), needToAdd->getEngMeaning(), needToAdd->getVieMeaning());
 			pracList->writeToFile(fileName);
 			delete pracList;
 			return 1;
@@ -314,6 +347,7 @@ public:
 		}
 	}
 
+
 	// -------------------------------------------- REMOVE ---------------------------------------
 	
 	// (no happen): 0: list is empty 
@@ -324,7 +358,7 @@ public:
 
 		int ind = hashWord(engNeedToDelWord);
 
-		while (this->vocabs->getAt(ind) != nullptr && this->vocabs->getAt(ind)->eng.compare(engNeedToDelWord) != 0) {
+		while (this->vocabs->getAt(ind) != nullptr && this->vocabs->getAt(ind)->getEng().compare(engNeedToDelWord) != 0) {
 			ind = (ind + 1) % DEFAULT_MAX_VOCAB;
 		}
 		Vocab* needToDel = vocabs->getAt(ind);
@@ -354,23 +388,24 @@ public:
 		return 1;
 	}
 
-	void writeToFile(std::string fileName) {
+	// write all the information to a file
+	// 1: complete
+	// 0: something went wrong
+	int writeToFile(std::string fileName) {
 		std::ofstream fout(fileName);
 
-		if (fout.fail()) {
-			std::cout << "Can\'t open file to Write.\n";
-			return;
-		}
+		if (fout.fail()) return 0;
 
 		for (int i = 0; i < this->vocabs->getSize(); i++) {
 			if (this->vocabs->getAt(i) != nullptr) {
-				fout << this->vocabs->getAt(i)->eng << "\n";
-				fout << this->vocabs->getAt(i)->engMean << "\n";
-				fout << this->vocabs->getAt(i)->vieMean << "\n";
+				fout << this->vocabs->getAt(i)->getEng() << "\n";
+				fout << this->vocabs->getAt(i)->getEngMeaning() << "\n";
+				fout << this->vocabs->getAt(i)->getVieMeaning() << "\n";
 			}
 		}
 
 		fout.close();
+		return 1;
 	}
 
 };
