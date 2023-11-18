@@ -1,12 +1,10 @@
 ﻿#pragma once
 
 #include "LettersTree.h"
+#include "ConsoleEffect.h"
 #include <conio.h>
 #include <random>
 #include <windows.h>
-
-#define ESC "\x1b"
-#define CSI "\x1b["
 
 // a prime number
 #define DEFAULT_MAX_VOCAB 401
@@ -153,8 +151,7 @@ public:
 			}
 
 			vocabs->setAt(ind, vcb);
-			lettersTree->addLetter(vcb->getEng());
-
+			lettersTree->pressWord(vcb->getEng());
 		}
 		fin.close();
 	}
@@ -162,8 +159,8 @@ public:
 	// read words from a specific file
 	// warning: file must has a suitable structure
 	EngVieDict(std::string fileName) {
-		vocabs = new DynamicArray<Vocab*>();
-		vocabs->resize(DEFAULT_MAX_VOCAB);
+		vocabs = new DynamicArray<Vocab*>(DEFAULT_MAX_VOCAB);
+		// vocabs->resize(DEFAULT_MAX_VOCAB);
 		lettersTree = new LettersTree();
 
 		std::ifstream fin(fileName);
@@ -186,16 +183,14 @@ public:
 			}
 
 			vocabs->setAt(ind, vcb);
-			lettersTree->addLetter(vcb->getEng());
-
+			lettersTree->pressWord(vcb->getEng());
 		}
 		fin.close();
 	}
 
 	~EngVieDict() {
-		for (int i = 0; i < DEFAULT_MAX_VOCAB; i++) {
-			delete vocabs->getAt(i);
-		}
+		for (int i = 0; i < DEFAULT_MAX_VOCAB; i++) delete vocabs->getAt(i);
+		delete vocabs;
 		delete lettersTree;
 	}
 
@@ -215,13 +210,13 @@ public:
 		do {
 			system("cls");
 			std::cout << "your word: " << userWord;
-			std::cout << ESC << "7";	// save current cursor's position
+			ConsoleEffect::saveCurrentCursor();
 			
 			std::cout << "\n";
 			std::cout << "---------------\n";
 			std::cout << "valid words:\n";
-			if (userWord.size()) lettersTree->crushWords(userWord);
-			std::cout << ESC << "8";	// go to the place was saved
+			if (userWord.size()) lettersTree->sweepWords(userWord);
+			ConsoleEffect::loadSavedCursor();
 			
 			userChar = _getch();
 
@@ -319,7 +314,7 @@ public:
 		}
 
 		vocabs->setAt(ind, vcb);
-		lettersTree->addLetter(vcb->getEng());
+		lettersTree->pressWord(vcb->getEng());
 		return 1;
 	}
 
@@ -337,7 +332,7 @@ public:
 		if (needToAdd) {
 			pracList->addWord(needToAdd->getEng(), needToAdd->getEngMeaning(), needToAdd->getVieMeaning());
 			pracList->writeToFile(fileName);
-			delete pracList;
+			delete pracList; // wrong here
 			return 1;
 		}
 		else {

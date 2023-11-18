@@ -5,8 +5,11 @@ template<class T>
 class DynamicArray {
 private:
     T* arr;
-    int size;
-    int capacity;
+    int size;       // the number of elements
+    int capacity;   // the largest numbers of elements array can store
+
+    // keep old values
+    // if new capacity is larger than old capacity, the new elements will be set default values
     void reCapacity(int newCapacity) {
         int oldCapacity = capacity;
         capacity = newCapacity;
@@ -27,14 +30,18 @@ private:
     }
 public:
 
+    // create an array with 0 elements
     DynamicArray() {
         arr = new T[0];
         size = 0;
         capacity = 0;
     }
 
+    // create an array with initalCapacity elements
+    // initalCapacity must be larger than 0
     DynamicArray(int initialCapacity) {
         arr = new T[initialCapacity];
+        for (int i = 0; i < initialCapacity; i++) arr[i] = T();
         size = initialCapacity;
         capacity = initialCapacity;
     }
@@ -43,12 +50,14 @@ public:
         delete[] arr;
     }
 
+    // if ind is not valid, do nothing
     void setAt(int ind, T inf) {
         if (ind >= 0 && ind < size) {
             arr[ind] = inf;
         }
     }
 
+    // if ind is not valid, do nothing
     T getAt(int ind) {
         if (ind >= 0 && ind < size) {
             return arr[ind];
@@ -56,8 +65,8 @@ public:
         return T(); // return an exception is default value
     }
 
-    
-
+    // keep old values
+    // if new size is larger than old size, the new elements will be set default values
     void resize(int newSize) {
         if (newSize > capacity) {
             int newCapacity = capacity * 2;  // Double the capacity
@@ -66,6 +75,7 @@ public:
             }
             reCapacity(newCapacity);
         }
+        for (int i = size; i < newSize; i++) arr[i] = T();
         size = newSize;
     }
 
@@ -73,10 +83,13 @@ public:
     int getSize() {
         return size;
     }
+
     int getCapacity() {
         return capacity;
     }
 
+    // remove an element at ind postion
+    // if ind is not valid, do nothing
     void remove(int ind) {
         if (ind >= 0 && ind < size) {
             for (int i = ind; i < size - 1; i++) {
@@ -86,11 +99,13 @@ public:
         }
     }
 
+    // add an element with value v to the last
     void add(T v) {
         resize(size + 1);
         setAt(size - 1, v);
     }
 
+    // clear all data and set size, capacity to 0
     void clear() {
         delete[] arr;
         arr = new T[0];
@@ -98,6 +113,8 @@ public:
         capacity = 0;
     }
 
+    // end = the last element will be added after the array have been printed
+    // haveEffect = have square brackets and commas
     void print(char end = ' ', bool haveEffect = true) {
         if (haveEffect) {
             std::cout << "[";

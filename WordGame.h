@@ -1,7 +1,6 @@
 #pragma once
 
 #include "EngVieDict.h"
-#include "ConsoleEffect.h"
 class WordGame: public EngVieDict {
 private:
 	//											-------------- QUIZ GAME ---------------
@@ -107,7 +106,7 @@ private:
 	// return 1 if ending normally
 	// return 0 if user want to exit
 	int askUserABCD(Vocab* askedWord, DynamicArray<std::string>* answers, int& rightAnswer) {
-		std::cout << "What is the meaning of "; ConsoleEffect::foregroundGreen(askedWord->getEng()); std::cout << "?\n";
+		std::cout << "What is the meaning of "; ConsoleEffect::foregroundGreenB(askedWord->getEng()); std::cout << "?\n";
 
 		char aa = 'A';
 		for (int i = 0; i < 4; i++) {
@@ -261,11 +260,11 @@ private:
 			printBoard(board, n);
 			return;
 		}
-		std::cout << "   ";
+		std::cout << "\t";
 		for (int i = 0; i < n; i++) std::cout << i << "  ";
-		std::cout << "\n\n";
+		std::cout << "\n\n\n";
 		for (int i = 0; i < n; i++) {
-			std::cout << i << "  ";
+			std::cout << i << "\t";
 			for (int j = 0; j < n; j++) {
 				bool havePrinted = false;
 				for (int k = 0; k < ans->getSize(); k++) {
@@ -290,12 +289,12 @@ private:
 
 	// white-black colors
 	void printBoard(char** board, int n) {
-		std::cout << "   ";
+		std::cout << "\t";
 		for (int i = 0; i < n; i++) std::cout << i << "  ";
-		std::cout << "\n\n";
+		std::cout << "\n\n\n";
 
 		for (int i = 0; i < n; i++) {
-			std::cout << i << "  ";
+			std::cout << i << "\t";
 			for (int j = 0; j < n; j++) {
 				std::cout << board[i][j] << "  ";
 			}
@@ -395,8 +394,8 @@ private:
 			int col = dis(ge);
 			int dir = dis2(ge);
 
-			// waring, can be infinity loop if there's no postion to placed
-			// need to fix
+			// warning, haven't fixed yet
+			// can be infinity loop if there's no postion to placed
 			while (!canPlaceWord(board, n, row, col, dir, word)) {
 				row = dis(ge);
 				col = dis(ge);
@@ -426,8 +425,9 @@ private:
 		while (userCorrectedAnswers->getSize() < answers->getSize()) {
 			system("cls");
 			printBoard(board, n, userCorrectedAnswers);
-
-			std::cout << "press\n";
+			ConsoleEffect::foregroundBlueB("- - - - - - - - - - - - - - - - - - - - - - -\n");
+			std::cout << "You have found: " << userCorrectedAnswers->getSize() << "/" << answers->getSize() << " words\n";
+			std::cout << "Press\n";
 			std::cout << "ENTER -> answer\n";
 			std::cout << "2 -> see answers\n";
 			std::cout << "q -> quit\n";
@@ -471,7 +471,8 @@ private:
 			}
 
 		}
-		ConsoleEffect::foregroundCyanB("Your achievements\n");
+		ConsoleEffect::foregroundBlueB("Your achievements!!!\n");
+		std::cout << "You have found: " << userCorrectedAnswers->getSize() << "/" << answers->getSize() << " words\n";
 		printBoard(board, n, userCorrectedAnswers);
 	}
 
@@ -599,16 +600,15 @@ public:
 		
 		// create a play list which contains words wants to play
 		std::cout << "Select the difficulty!\n";
-		std::cout << "1 --> Very Easy, One Word\n";
-		std::cout << "2 --> Easy, 5 Words\n";
-		std::cout << "3 --> Normal, 10 Words\n";
-		std::cout << "4 --> Hard, 15 Words\n";
+		std::cout << "1 --> Easy, One Word\n";
+		std::cout << "2 --> Normal, 5 Words\n";
+		std::cout << "3 --> Hard, 10 Words\n";
 		std::cout << "Chose one: ";
 		std::string userCommand;
 		std::getline(std::cin, userCommand);
 
-		while (!(userCommand[0] >= '1' && userCommand[0] <= '4')) {
-			std::cout << "chose from 1 to 4: ";
+		while (!(userCommand[0] >= '1' && userCommand[0] <= '3')) {
+			std::cout << "chose from 1 to 3: ";
 			std::getline(std::cin, userCommand);
 		}
 
@@ -620,11 +620,8 @@ public:
 		case '2':
 			playWordList = new DynamicArray<std::string>(5);
 			break;
-		case '3':
-			playWordList = new DynamicArray<std::string>(10);
-			break;
 		default:
-			playWordList = new DynamicArray<std::string>(15);
+			playWordList = new DynamicArray<std::string>(10);
 		}
 
 		if (playWordList->getSize() > words->getSize()) {
@@ -661,12 +658,12 @@ public:
 		}
 
 		DynamicArray<BoardGameAnswer>* answers = new DynamicArray<BoardGameAnswer>();
-		char** board = createWordLetterBoard(maxLengthPlayWords + 3, playWordList, answers);
+		char** board = createWordLetterBoard(maxLengthPlayWords + 4, playWordList, answers);
 		delete playWordList;
-		getStartedHidingWordGame(board, maxLengthPlayWords + 3, answers);
+		getStartedHidingWordGame(board, maxLengthPlayWords + 4, answers);
 
 		// clean
-		clearBoard(board, maxLengthPlayWords + 3);
+		clearBoard(board, maxLengthPlayWords + 4);
 		delete answers;
 		ConsoleEffect::foregroundYellowB("END HIDING LETTER GAME, HOPE TO SEE YOU AGAIN.\n");
 		std::cout << "-------------------------------------------------------------\n";

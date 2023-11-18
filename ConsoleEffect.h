@@ -7,7 +7,8 @@
 
 class ConsoleEffect {
 public:
-	// save current cursor to the memmory
+
+	// save current cursor to the memory
 	static void saveCurrentCursor() {
 		std::cout << ESC << "7";
 	}
@@ -217,7 +218,5 @@ public:
 		std::cout << CSI << "97m" << s;
 		foregroundDefault();
 	}
-
-
 
 };
