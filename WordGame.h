@@ -23,7 +23,7 @@ private:
 
 	// read the list of words
 	// return a pointer which has DynamicArray<Vocab*>* type
-	// return null if there is no vocabs in the list was read
+	// return null if the list is empty
 	DynamicArray<Vocab*>* preparePractice(std::string fileName) {
 		DynamicArray<Vocab*>* practiceWords = getPracticeWords("PracticeWords.txt");
 		if (practiceWords->getSize() == 0) {
@@ -39,9 +39,8 @@ private:
 		listVocabs->add(new Vocab("peace", "accord, truce, agreement", "hoa binh"));
 	}
 
-	// play all words in the practiceWords list but exclude the three default ones, then return the num of right answers that user chose correctly
-	// numPlayedWords is the the total of questions the user played, that mean this function could be quit while playing
-	// by anytime user want
+	// Games will only inlcude words in practicWords list excluding default ones, and return num (the amount of correct answers given by the player)
+	// numPlayedWords is the the total of questions the user has played, that mean the game can end at anytime the user wants
 	int getStartedQuizzes(DynamicArray<Vocab*>* practiceWords, int& numPlayedWords) {
 		std::random_device rd;
 		std::mt19937 ge(rd());
@@ -50,13 +49,13 @@ private:
 
 		int numRightAnswer = numPlayedWords = 0;
 
-		// get words from practiceWords list in turn
+		// get words from practiceWords list in order
 		for (int i = 0; i < practiceWords->getSize() - 3; i++) {
 
-			// create an array which will store 4 sentences, these 4 sentences are going to be shown to user
+			// create an array in which will store 4 sentences, these 4 sentences are option for the user to choose from
 			DynamicArray<std::string>* answers = new DynamicArray<std::string>(4);
 
-			// put randomly user word to answers
+			// randomly put user word to answers
 			// generate a random position in answers
 			int randomAnswerPos = dis2(ge);
 			// while the position have already had an answer
@@ -67,7 +66,7 @@ private:
 			// there random position will get in the list 
 			int p1, p2, p3;
 
-			// chose randomly three sentences from the father list of practice words
+			// randomly choose three sentences from the father list of practice words
 			p1 = dis(ge);
 			while (p1 == i) p1 = dis(ge);
 			randomAnswerPos = dis2(ge);
@@ -105,10 +104,10 @@ private:
 		else return false;
 	}
 
-	// NOTE: this function only be use for "getStartedQuizzes"
+	// NOTE: this function is only used for "getStartedQuizzes"
 	// askedWord: the word you want to ask
-	// answers: the list of 4 sentences, contains one sentence is the English meaning of askedWord
-	// rightAnswer will increase by 1 if user answered correctly
+	// answers: contain 4 sentences, one of which is the correct answer of the askedWord
+	// rightAnswer increases by 1 if user answered correctly
 	// return 1 if ending normally
 	// return 0 if user want to exit
 	int askUserABCD(Vocab* askedWord, DynamicArray<std::string>* answers, int& rightAnswer) {
@@ -129,7 +128,7 @@ private:
 			std::getline(std::cin, userAnswer);
 		}
 
-		// if A->D, change it to a->d
+		// decapitalize A,B,C,D from userAnswer
 		if (userAnswer[0] >= 'A' && userAnswer[0] <= 'D') userAnswer[0] += 32;
 		if (userAnswer[0] == 'g') {
 			std::cout << "----------------exited----------------\n";
@@ -203,10 +202,10 @@ private:
 
 	//                                          -------------- HIDING WORDS GAME ---------------
 	
-	// dir:
+	// dir (directions):
 	// 1: left to right
-	// 2: top to bot
-	// 3: left-top to right-bot
+	// 2: top to bottom
+	// 3: top-left to bottom-right
 	struct BoardGameAnswer {
 		int row, col, dir;
 		std::string word;
@@ -234,7 +233,7 @@ private:
 
 	};
 
-	// BECAREFUL, just take valid arguments
+	// BECAREFUL, only take in valid arguments
 	bool belongAnswerArea(BoardGameAnswer answer, int row, int col) {
 		switch (answer.dir) {
 		case 1:
@@ -242,11 +241,11 @@ private:
 			if (row != answer.row || !(col >= answer.col && col < answer.col + answer.word.length())) return false;
 			break;
 		case 2:
-			// top to bot
+			// top to bottom
 			if (col != answer.col || !(row >= answer.row && row < answer.row + answer.word.length())) return false;
 			break;
 		case 3:
-			// left-top to right-bot
+			// top-left to bottom-right
 			int i = answer.row;
 			int j = answer.col;
 			int l = answer.word.length();
@@ -260,7 +259,7 @@ private:
 		return true;
 	}
 
-	// print with colors for the words in ans array 
+	// visual effects (print colors for words in ans array)
 	void printBoard(char** board, int n, DynamicArray<BoardGameAnswer>* ans) {
 		if (ans->getSize() == 0) {
 			printBoard(board, n);
@@ -308,17 +307,17 @@ private:
 		}
 	}
 
-	// dir:
+	// dir (directions):
 	// 1: left to right
-	// 2: top to bot
-	// 3: left-top to right-bot
-	// WARING: Input must valid
+	// 2: top to bottpm
+	// 3: left-top to right-bottom
+	// WARING: Input must be valid
 	bool canPlaceWord(char** board, int n, int row, int col, int direction, std::string word) {
 		if (row + word.length() >= n || col + word.length() >= n) return false;
 		int i = row;
 		int j = col;
 		for (char letter : word) {
-			// if the position haven't been placed or been placed but has the same letter 
+			// if the position hasn't been placed or has been placed but has the same letter 
 			if (board[i][j] == '0' || board[i][j] == letter) {
 				switch (direction) {
 				case 1: j++; break;
@@ -332,7 +331,7 @@ private:
 
 	}
 
-	// WARING: Inputs has been checked and certainly can be placed to the board
+	// WARING: Inputs must be CHECKED and CAN be placed in the board
 	void placeWord(char** board, int n, int row, int col, int direction, std::string word) {
 		int i = row;
 		int j = col;
@@ -346,7 +345,7 @@ private:
 		}
 	}
 
-	// WARING: Inputs has been checked
+	// WARING: Inputs must be CHECKED
 	void putMissingLettersForTheBoard(char** board, int n) {
 		std::random_device rd;
 		std::mt19937 ge(rd());
@@ -360,7 +359,7 @@ private:
 		}
 	}
 
-	// WARNING: Maybe works in correctly if n too big or allocated failly
+	// WARNING: Might not work if n is too big or is allocated falsely
 	// return a 2D-Array
 	// n must be sufficient
 	char** initialBoard(int n, char defValue = '0') {
@@ -381,9 +380,9 @@ private:
 		delete[] board;
 	}
 
-	// return a 2D Array, each cell of this array contains letter
-	// some rows, columns, or diagonal is arranged with meaning of words (is parameter) list
-	// answers is going to be allocated, its contents depends in words (is parameter) contents
+	// return a 2D-Array, each cell of this array contains a letter
+	// some rows, columns, or diagonals is arranged with meaning of words (is parameter) list
+	// answers is going to be allocated, its contents depend on words (is parameter) contents
 	char** createWordLetterBoard(int n, DynamicArray<std::string>* words, DynamicArray<BoardGameAnswer>*& answers) {
 		char** board = initialBoard(n, '0');
 
@@ -401,7 +400,7 @@ private:
 			int dir = dis2(ge);
 
 			// warning, haven't fixed yet
-			// can be infinity loop if there's no postion to placed
+			// can be an infinite loop if there's no available spot to place
 			while (!canPlaceWord(board, n, row, col, dir, word)) {
 				row = dis(ge);
 				col = dis(ge);
@@ -450,8 +449,8 @@ private:
 				ConsoleEffect::foregroundBlueB("- - - - - - - - - - - - - - - - - - - - - - -\n");
 				ConsoleEffect::foregroundYellowB("\t\tDirections\n");
 				std::cout << "1: left to right\n";
-				std::cout << "2: top to bot\n";
-				std::cout << "3: left-top to right-bot\n";
+				std::cout << "2: top to bottom\n";
+				std::cout << "3: top-left to bottom-right\n";
 				ConsoleEffect::foregroundYellowB("\t\tAnswers\n");
 				for (int i = 0; i < answers->getSize(); i++) {
 					std::cout << "(row:" << answers->getAt(i).row << ", col:" <<
@@ -462,7 +461,7 @@ private:
 				system("pause");
 			}
 			else if (userCommand == 'q') {
-				std::cout << "are you sure to quit?(y): ";
+				std::cout << "Do you want to quit?(y): ";
 				std::cin >> userCommand;
 				std::cin.ignore();
 				if (userCommand == 'y') break;
@@ -534,7 +533,7 @@ public:
 			std::cout << "You was right 0% of the total questions.\n";
 		}
 
-		// clean
+		// cleaning services
 		delete practiceWords;
 		delete mainPracticeWords;
 
