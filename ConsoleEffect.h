@@ -8,42 +8,42 @@
 class ConsoleEffect {
 public:
 
-	// save current cursor to the memory
+	// save current cursor position to the memory
 	static void saveCurrentCursor() {
 		std::cout << ESC << "7";
 	}
 
-	// move the cursor to the position that 'saveCurrentCursor' saved
+	// move the cursor to the position that 'saveCurrentCursor' has saved
 	static void loadSavedCursor() {
 		std::cout << ESC << "8";
 	}
 
-	// move the cursor to straight up n times
+	// move the cursor to up a line n times
 	static void moveUp(int times) {
 		std::cout << CSI << std::to_string(times) << "A";
 	}
 
-	// move the cursor down n times
+	// move the cursor down a line n times
 	static void moveDown(int times) {
 		std::cout << CSI << std::to_string(times) << "B";
 	}
 
-	// move the cursor to the right n times
+	// move the cursor to the right per character n times
 	static void moveRight(int times) {
 		std::cout << CSI << std::to_string(times) << "C";
 	}
 
-	// move the cursor to the left n times
+	// move the cursor to the left per character n times
 	static void moveLeft(int times) {
 		std::cout << CSI << std::to_string(times) << "D";
 	}
 
-	// start the cursor blinking
+	// start cursor-blinking
 	static void blinkingCursor() {
 		std::cout << CSI << "?12h";
 	}
 
-	// stop blinking the cursor
+	// stop cursor-blinking
 	static void noBlinkingCursor() {
 		std::cout << CSI << "?12l";
 	}
@@ -63,50 +63,50 @@ public:
 		std::cout << CSI << "0 q";
 	}
 
-	// set blinking block cursor shape
+	// set blinking block-cursor
 	static void blinkingBlockCursor() {
 		std::cout << CSI << "1 q";
 	}
 
-	// set steady block cursor shape
+	// set steady block-cursor
 	static void steadyBlockCursor() {
 		std::cout << CSI << "2 q";
 	}
 
-	// set blinking underline cursor shape
+	// set blinking underline-cursor
 	static void blinkingUnderlineCursor() {
 		std::cout << CSI << "3 q";
 	}
 
-	// set steady underline cursor shape
+	// set steady underline-cursor
 	static void steadyUnderlineCursor() {
 		std::cout << CSI << "4 q";
 	}
 
-	// set blinking bar cursor shape
+	// set blinking bar-cursor
 	static void blinkingBarCursor() {
 		std::cout << CSI << "5 q";
 	}
 
-	// set steady bar cursor shape
+	// set steady bar-cursor
 	static void steadyBarCursor() {
 		std::cout << CSI << "6 q";
 	}
 
-	// Insert <numOfSpace> spaces at the current cursor position, shifting all existing text to the right
+	// Insert <numOfSpace> space(s) at the current cursor position, shifting all existing text to the right
 	// Text exiting the screen to the right is removed
 	// No moving the cursor
 	static void insertSpace(int numOfSpace) {
 		std::cout << CSI << std::to_string(numOfSpace) << "@";
 	}
 
-	// Delete <numOfCharacter> characters to the right
+	// Delete <numOfCharacter> character(s) to the right
 	// No moving the cursor
 	static void deleteCharacter(int numOfCharacter) {
 		std::cout << CSI << std::to_string(numOfCharacter) << "P";
 	}
 
-	// Overwrite <numOfCharacter> characters to the right
+	// Overwrite <numOfCharacter> character(s) to the right
 	// No moving the cursor
 	static void eraseCharacter(int numOfCharacter) {
 		std::cout << CSI << std::to_string(numOfCharacter) << "X";
@@ -137,7 +137,7 @@ public:
 		std::cout << CSI << "38";
 	}
 
-	// no Bright
+	// Normal-clored foreground
 	static void foregroundBlack(std::string s) {
 		std::cout << CSI << "30m" << s;
 		foregroundDefault();
@@ -178,7 +178,7 @@ public:
 		foregroundDefault();
 	}
 
-	// Bright
+	// Bright-colored foreground
 	static void foregroundBlackB(std::string s) {
 		std::cout << CSI << "90m" << s;
 		foregroundDefault();
