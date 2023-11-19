@@ -1,3 +1,9 @@
+/*
+
+This class is a dictionary but has games
+
+*/
+
 #pragma once
 
 #include "EngVieDict.h"

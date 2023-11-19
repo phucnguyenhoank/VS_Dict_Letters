@@ -4,7 +4,6 @@
 #include "ConsoleEffect.h"
 #include <conio.h>
 #include <random>
-#include <windows.h>
 
 // a prime number
 #define DEFAULT_MAX_VOCAB 401
@@ -198,7 +197,6 @@ public:
 
 	// get user string concurrently with suggesting the words of the dictionary
 	std::string suggestWord() {
-		
 		// ENTER: 13
 		// BACKSPACE: 8
 		// SPACE: 32
@@ -219,7 +217,6 @@ public:
 			ConsoleEffect::loadSavedCursor();
 			
 			userChar = _getch();
-
 			if (userChar < 8 || userChar>122) continue;
 			else if (userChar == 8) {
 				if (userWord.size() == 0) continue;
@@ -272,7 +269,6 @@ public:
 	}
 
 
-
 	// -------------------------------------------------- DISPLAY --------------------------------------------
 
 	// get user string and show the meaning of that word if it has
@@ -297,8 +293,6 @@ public:
 	}
 
 
-	
-
 	// -------------------------------------------- ADD -----------------------------------------
 
 	// 1: complete
@@ -322,22 +316,21 @@ public:
 	// 2: the wanted-word already exists in the list
 	// 3: don't have the wanted-word in the list
 	int addToPracticeList(std::string fileName) {
-		EngVieDict* pracList = new EngVieDict(fileName);
+		EngVieDict* practiceList = new EngVieDict(fileName);
 
 		std::string userWord = suggestWord();
 		const Vocab* needToAdd = searchWord(userWord);
 
-		if (pracList->haveWord(userWord)) return 2;
-
+		if (practiceList->haveWord(userWord)) return 2;
 		if (needToAdd) {
-			pracList->addWord(needToAdd->getEng(), needToAdd->getEngMeaning(), needToAdd->getVieMeaning());
-			pracList->writeToFile(fileName);
-			delete pracList; // wrong here
+			practiceList->addWord(needToAdd->getEng(), needToAdd->getEngMeaning(), needToAdd->getVieMeaning());
+			practiceList->writeToFile(fileName);
+			delete practiceList; // wrong here
 			return 1;
 		}
 		else {
-			pracList->writeToFile(fileName);
-			delete pracList;
+			practiceList->writeToFile(fileName);
+			delete practiceList;
 			return 3;
 		}
 	}
@@ -352,10 +345,10 @@ public:
 		if (!haveWord(engNeedToDelWord)) return 2;
 
 		int ind = hashWord(engNeedToDelWord);
-
 		while (this->vocabs->getAt(ind) != nullptr && this->vocabs->getAt(ind)->getEng().compare(engNeedToDelWord) != 0) {
 			ind = (ind + 1) % DEFAULT_MAX_VOCAB;
 		}
+
 		Vocab* needToDel = vocabs->getAt(ind);
 		delete needToDel;
 		vocabs->setAt(ind, nullptr);
@@ -368,17 +361,17 @@ public:
 	// 1: complete
 	// 2: don't have the wanted-word in the list
 	int removeFromPracticeList(std::string fileName) {
-		EngVieDict* pracList = new EngVieDict(fileName);
+		EngVieDict* practiceList = new EngVieDict(fileName);
 
-		if (pracList->getNumOfWord()==0) return 0;
+		if (practiceList->getNumOfWord()==0) return 0;
 
-		std::string userWord = pracList->suggestWord();
+		std::string userWord = practiceList->suggestWord();
 		
-		if (pracList->haveWord(userWord)) pracList->removeWord(userWord);
+		if (practiceList->haveWord(userWord)) practiceList->removeWord(userWord);
 		else return 2;
 
-		pracList->writeToFile(fileName);
-		delete pracList;
+		practiceList->writeToFile(fileName);
+		delete practiceList;
 
 		return 1;
 	}
@@ -388,7 +381,6 @@ public:
 	// 0: something went wrong
 	int writeToFile(std::string fileName) {
 		std::ofstream fout(fileName);
-
 		if (fout.fail()) return 0;
 
 		for (int i = 0; i < this->vocabs->getSize(); i++) {

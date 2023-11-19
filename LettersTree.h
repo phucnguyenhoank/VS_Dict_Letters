@@ -1,21 +1,23 @@
-﻿#pragma once
+﻿/*
+
+this class is a feature of the dictionary (EngVieDict.h)
+
+*/
+
+#pragma once
 
 #include "Node.h"
 #include <iostream>
 #include <string>
 #include <fstream>
 
-/*
 
-this class is a feature of the dictionary
-
-*/
 
 class LettersTree {
-	// the key of the highest node if 0
-public:
+private:
+	// the key of the highest node is 0
 	Node* root;
-
+public:
 	LettersTree() {
 		root = new Node();
 	}
@@ -71,6 +73,7 @@ public:
 
 	}
 
+	// press (add) word into this tree
 	void pressWord(std::string word) {
 		if (have(word)) return;
 
@@ -100,6 +103,8 @@ public:
 	}
 
 	// ---------------------------------- REMOVE ----------------------------------
+
+	// remove word from the tree
 	void remove(std::string word) {
 		if (!have(word)) return;
 		
@@ -119,6 +124,8 @@ public:
 	}
 
 	// ---------------------------------- CHECKING ----------------------------------
+
+	// return true if have word in the tree
 	bool have(std::string word) {
 		char fir;
 		Node* nextNode = root;
@@ -138,7 +145,7 @@ public:
 
 	// --------------------------------- DISPLAY -----------------------------------------
 
-	// JUST FOR TESTING, MAY CAUSE COFUSING
+	// JUST FOR TESTING, MAY CAUSE CONFUSING
 	void show(Node* r) {
 		if (r) {
 			if (r->getSense()) std::cout << "ms-";
@@ -151,6 +158,7 @@ public:
 			}
 		}
 	}
+	// JUST FOR TESTING, MAY CAUSE CONFUSING
 	void show() {
 		this->show(root);
 	}

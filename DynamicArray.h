@@ -1,3 +1,10 @@
+/*
+
+The main aim of this array is to be used as a hash table
+The capacity will be duplicated each time after the size is over the capacity
+
+*/
+
 #pragma once
 #include <iostream>
 

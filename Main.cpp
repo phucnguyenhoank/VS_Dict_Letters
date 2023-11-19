@@ -1,4 +1,4 @@
-﻿// 12:19 AM Nov/19/2023
+﻿
 #include "WordGame.h"
 
 int main() {
