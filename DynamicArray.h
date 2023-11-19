@@ -1,7 +1,7 @@
 /*
 
 The main aim of this array is to be used as a hash table
-The capacity will be duplicated each time after the size is over the capacity
+The capacity will be duplicated each time after the size is greater than the capacity
 
 */
 
@@ -13,10 +13,10 @@ class DynamicArray {
 private:
     T* arr;
     int size;       // the number of elements
-    int capacity;   // the largest numbers of elements array can store
+    int capacity;   // the largest numbers of elements the array can store
 
     // keep old values
-    // if new capacity is larger than old capacity, the new elements will be set default values
+    // if new capacity is larger than old capacity, the new elements will be set to default values
     void reCapacity(int newCapacity) {
         int oldCapacity = capacity;
         capacity = newCapacity;
@@ -44,8 +44,7 @@ public:
         capacity = 0;
     }
 
-    // create an array with initalCapacity elements
-    // initalCapacity must be larger than 0
+    // create an array with initalCapacity(>0) elements
     DynamicArray(int initialCapacity) {
         arr = new T[initialCapacity];
         for (int i = 0; i < initialCapacity; i++) arr[i] = T();
@@ -69,11 +68,11 @@ public:
         if (ind >= 0 && ind < size) {
             return arr[ind];
         }
-        return T(); // return an exception is default value
+        return T(); // return an exception which is the default value
     }
 
     // keep old values
-    // if new size is larger than old size, the new elements will be set default values
+    // if new size is larger than old size, the new elements will be set to default values
     void resize(int newSize) {
         if (newSize > capacity) {
             int newCapacity = capacity * 2;  // Double the capacity
@@ -106,7 +105,7 @@ public:
         }
     }
 
-    // add an element with value v to the last
+    // add an element with value v to the back of the array
     void add(T v) {
         resize(size + 1);
         setAt(size - 1, v);
