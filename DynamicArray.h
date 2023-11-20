@@ -11,7 +11,7 @@ The capacity will be duplicated each time after the size is greater than the cap
 template<class T>
 class DynamicArray {
 private:
-    T* arr;
+    T* arr;         // the pointer will point to a stored data area
     int size;       // the number of elements
     int capacity;   // the largest numbers of elements the array can store
 
