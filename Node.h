@@ -7,13 +7,14 @@ This Node is a node in a letter tree (LettersTree.h)
 #pragma once
 #include "DynamicArray.h"
 
-#define MAX_LETTERS 27		// the maximum of child nodes, 26 letters, don't use the first place
+// the maximum of child nodes, 26 letters, exclude the first place
+#define MAX_LETTERS 27
 
 class Node {
 private:
 	DynamicArray<Node*> *letters;	// available children nodes
-	char key;						// the letter of the Node, key = 0 means it has no letter	
-	bool makeSense;					// true if gone-letters from ther biggest father node to it chain to a word has a meaning
+	char key;			// the letter of the Node, key = 0 means it has no letter	
+	bool makeSense;			// true if gone-letters from ther biggest father node to it chain to a word has a meaning
 
 public:
 	Node() {
@@ -29,7 +30,7 @@ public:
 		delete letters;
 	}
 
-	// return a pointer (maybe null) which is pointing to a child node
+	// return a pointer (might be null) pointing to a child node
 	Node* getLetterAt(int ind) {
 		return letters->getAt(ind);
 	}
@@ -44,7 +45,7 @@ public:
 		this->key = key;
 	}
 
-	// true if gone-letters from ther biggest father node to it chain to a word has a meaning
+	// sense = true if passed-letters, from the biggest father node to it, forming a word that has meaning
 	void setSense(bool sense) {
 		this->makeSense = sense;
 	}
