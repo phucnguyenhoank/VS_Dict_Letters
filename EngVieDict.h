@@ -79,7 +79,7 @@ private:
 protected:
 	// ---------------------------------------------------- SEARCH ---------------------------------------------
 
-	// return a reference pointer is pointing to a Vocab
+	// return a reference pointer pointing to a Vocab
 	// return null if it does not exist
 	const Vocab* searchWord(std::string engWord) {
 		int ind = hashWord(engWord);
@@ -90,9 +90,9 @@ protected:
 	}
 
 	// read the list of words from "fileName"
-	// having using dynamic allocating
-	// return a pointer which is pointing to a DynamicArray<Vocab*>
-	// this function don't return null pointer
+	// uses dynamic allocating
+	// return a pointer pointing to a DynamicArray<Vocab*>
+	// this function doesn't return a null pointer
 	DynamicArray<Vocab*>* getPracticeWords(std::string fileName) {
 		DynamicArray<Vocab*>* prw = new DynamicArray<Vocab*>();
 
@@ -156,7 +156,7 @@ public:
 	}
 
 	// read words from a specific file
-	// warning: file must has a suitable structure
+	// warning: file must has a appropriate structure
 	EngVieDict(std::string fileName) {
 		vocabs = new DynamicArray<Vocab*>(DEFAULT_MAX_VOCAB);
 		// vocabs->resize(DEFAULT_MAX_VOCAB);
@@ -237,7 +237,7 @@ public:
 
 	// --------------------------------------------------- CHECKING and GETTING -----------------------------------------
 
-	// return true if there is the word in the dictionary
+	// return true if the word is in the dictionary
 	bool haveWord(std::string word) {
 		for (int i = 0; i < vocabs->getSize(); i++) {
 			if (vocabs->getAt(i) != nullptr && vocabs->getAt(i)->getEng().compare(word) == 0) {
@@ -248,7 +248,7 @@ public:
 	}
 
 	// QUESTION: why do we use DEFAULT_MAX_VOCAB?
-	// return the current num of existing words of the dictionary
+	// return the current num of existing words in the dictionary
 	int getNumOfWord() {
 		int num = 0;
 		for (int i = 0; i < DEFAULT_MAX_VOCAB; i++) {
@@ -271,7 +271,7 @@ public:
 
 	// -------------------------------------------------- DISPLAY --------------------------------------------
 
-	// get user string and show the meaning of that word if it has
+	// get user string and show the meaning of that word if possible
 	void lookUp() {
 		std::string userWord = suggestWord();
 		int ind = hashWord(userWord);
@@ -283,7 +283,7 @@ public:
 		else vocabs->getAt(ind)->showBothMeaning();
 	}
 
-	// show the whole keys and values of the dictionary, which is really a hash table
+	// show the whole keys and values of the dictionary, which really is just a hash table
 	void showHashTable() {
 		for (int i = 0; i < DEFAULT_MAX_VOCAB; i++) {
 			if (vocabs->getAt(i) != nullptr) {
