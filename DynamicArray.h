@@ -37,7 +37,6 @@ private:
         delete[] needToDel;
     }
 public:
-
     // create an array with 0 elements
     DynamicArray() {
         arr = new T[0];
