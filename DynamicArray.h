@@ -29,6 +29,7 @@ private:
         for (int i = 0; i < minCapacity; i++) {
             arr[i] = needToDel[i];
         }
+        //if newCapacity > oldCapacity
         for (int i = oldCapacity; i < newCapacity; i++) {
             arr[i] = T();
         }
