@@ -328,6 +328,63 @@ bam sinh
 keen
 acute, sharp, eager, passionate
 sac sao, nhiet tam
+knife
+a sharp cutlery
+dao
+knight
+warrior, soldier
+ky sy, chien si
+keep
+hold on to, preserve
+giu gin, bao quan
+know
+aware, apprehend
+biet
+knowlegde
+infomation, lore
+su hieu biet, kien thuc
+king
+majesty, highness
+hoang de, vi vua
+kind
+nice, warm-hearted
+tot bung, hien
+lie
+fake, scam, bluff, make up
+noi doi, doi tra
+late
+slow, tardy, delayed
+cham chap, cham tre
+nothing
+none, empty, void
+trong rong, khong co gi
+nature
+forests, plants, animals 
+thien nhien
+need
+require, exigent, demand
+nhu cau, can
+evade
+avoid, dodge, elude, escape
+tron tranh, ne tranh
+egg
+ovum
+qua trung
+elegant
+polite, well-mannered
+thanh lich, lich thiep
+journey
+voyage, trip, expedition
+chuyen di, cuoc hanh trinh
+judge
+rate, mark, envisage, adjudicate
+phan xu, danh gia, phan xet
+jacket
+coat
+ao khoac
+jar
+container, box
+cai lo
 jest
 joke, playful, tease
 tro dua
@@ -364,6 +421,36 @@ su de doa, doa nat
 mirage
 illusion, delusion, halucination, fantasy
 ao anh
+quest
+pursuit, hunt, mission, search
+nhiem vu, cuoc tiem kiem
+quiet
+silent, peaceful, easeful
+yen lang, yen on
+quit
+give up, leave, surrender
+tu bo, bo cuoc
+quote
+indicate, show, cite
+dan chung, trich dan
+unite
+combine, unionize, compact
+thong nhat, doan ket
+upset
+sad, angry, troubled
+buon buc
+use
+utility, benefit, gain
+cach dung, huu ich, su dung
+xylophone
+a musical instrument
+moc cam
+zero
+nothing, empty, none
+so khong, khong
+zany
+dumb, naive, muff
+kho dai, dan don
 mischief
 evil, illness
 tinh nghich, lau ca
