@@ -64,10 +64,10 @@ private:
 			// put one answer to the answers array
 			answers->setAt(randomAnswerPos, practiceWords->getAt(i)->getEngMeaning());
 
-			// there random position will get in the list 
+			// these random positions in the answers are for wrong answers
 			int p1, p2, p3;
 
-			// randomly choose three sentences from the father list of practice words
+			// randomly choose three sentences from the father list of practice words (to act as wrong answers)
 			p1 = dis(ge);
 			while (p1 == i) p1 = dis(ge);
 			randomAnswerPos = dis2(ge);
@@ -96,6 +96,7 @@ private:
 		return numRightAnswer;
 	}
 
+	// checking if the user's answer is appropriate
 	bool askUserABCD_CheckInput(std::string userAnswer) {
 		if (userAnswer.length() != 1) return false;
 
@@ -129,7 +130,7 @@ private:
 			std::getline(std::cin, userAnswer);
 		}
 
-		// decapitalize A,B,C,D from userAnswer
+		// decapitalize A,B,C,D from userAnswer + visual effects
 		if (userAnswer[0] >= 'A' && userAnswer[0] <= 'D') userAnswer[0] += 32;
 		if (userAnswer[0] == 'g') {
 			std::cout << "----------------exited----------------\n";
@@ -148,14 +149,14 @@ private:
 
 
 	//											-------------- MISSING WORDS GAME ---------------
-
+	// checking input
 	bool isLetterOrQuitCommand(std::string s) {
 		if (s.length() != 1) return false;
 		char c = s[0];
 		if (c >= 'a' && c <= 'z' || c == '0') return true;
 		return false;
 	}
-
+	//starting game
 	int getStartedMissingLetters(DynamicArray<Vocab*>* practiceWords, int& numPlayedWords) {
 		std::random_device rd;
 		std::mt19937 ge(rd());
@@ -172,7 +173,6 @@ private:
 			std::string s;
 			std::getline(std::cin, s);
 
-
 			while (!isLetterOrQuitCommand(s)) {
 				std::cout << "invalid command, try again: ";
 				std::getline(std::cin, s);
@@ -184,7 +184,8 @@ private:
 				std::cout << "---------------exited--------------\n";
 				return numRightAnswer;
 			}
-
+	
+			//VFXs
 			if (missingLetter == practiceWords->getAt(i)->getEng()[missingPosInTheWord]) {
 				std::cout << "correct w(^o^)W\n";
 				numRightAnswer++;
@@ -332,7 +333,7 @@ private:
 
 	}
 
-	// WARING: Inputs must be CHECKED and CAN be placed in the board
+	// WARING: Inputs must be VALID and CAN be placed in the board
 	void placeWord(char** board, int n, int row, int col, int direction, std::string word) {
 		int i = row;
 		int j = col;
@@ -346,7 +347,7 @@ private:
 		}
 	}
 
-	// WARING: Inputs must be CHECKED
+	// WARING: Inputs must be VALID
 	void putMissingLettersForTheBoard(char** board, int n) {
 		std::random_device rd;
 		std::mt19937 ge(rd());
@@ -362,7 +363,7 @@ private:
 
 	// WARNING: Might not work if n is too big or is allocated falsely
 	// return a 2D-Array
-	// n must be sufficient
+	// n must suffice
 	char** initialBoard(int n, char defValue = '0') {
 		char** board = new char* [n];
 		for (int i = 0; i < n; i++) board[i] = new char[n];
@@ -383,7 +384,7 @@ private:
 
 	// return a 2D-Array, each cell of this array contains a letter
 	// some rows, columns, or diagonals is arranged with meaning of words (is parameter) list
-	// answers is going to be allocated, its contents depend on words (is parameter) contents
+	// answers is will be allocated, its contents depend on words (is parameter) contents
 	char** createWordLetterBoard(int n, DynamicArray<std::string>* words, DynamicArray<BoardGameAnswer>*& answers) {
 		char** board = initialBoard(n, '0');
 
@@ -520,7 +521,7 @@ public:
 			practiceWords->add(mainPracticeWords->getAt(i)); // WARNING: just add a pointer, there is only one Vocab object here
 		}
 
-		// in case there is only one word
+		// incase there is only one word
 		addDefaultVocabs(practiceWords);
 
 		// play and calculate the result
@@ -584,7 +585,7 @@ public:
 			std::cout << "You was right 0% of the total questions.\n";
 		}
 		
-		// clean
+		// clean services
 		delete practiceWords;
 		delete mainPracticeWords;
 		ConsoleEffect::foregroundYellowB("END MISSING LETTER GAME, HOPE TO SEE YOU AGAIN.\n");
@@ -604,7 +605,7 @@ public:
 		DynamicArray<std::string>* words = new DynamicArray<std::string>();
 		for (int i = 0; i < practiceWords->getSize(); i++) words->add(practiceWords->getAt(i)->getEng());
 		
-		// create a play list which contains words wants to play
+		// create a play list which contains words you wanna play
 		std::cout << "Select the difficulty!\n";
 		std::cout << "1 --> Easy, One Word\n";
 		std::cout << "2 --> Normal, 5 Words\n";
