@@ -109,7 +109,7 @@ public:
 		if (!have(word)) return;
 		
 		char fir;				
-		Node* nextNode = root;	// this pointer is going to point to the node (if presant) represent for the last letter of word
+		Node* nextNode = root;	// this pointer will point to the node (if present) representing the last letter of the word
 
 		// find the place
 		while (word.size()) {
@@ -119,13 +119,13 @@ public:
 			nextNode = nextNode->getLetterAt(fir - 'a' + 1);
 		}
 
-		// just set 'makeSense' to false
+		// set 'makeSense' to false
 		nextNode->setSense(false);	
 	}
 
 	// ---------------------------------- CHECKING ----------------------------------
 
-	// return true if have word in the tree
+	// return true if the word is in the tree
 	bool have(std::string word) {
 		char fir;
 		Node* nextNode = root;
@@ -145,7 +145,7 @@ public:
 
 	// --------------------------------- DISPLAY -----------------------------------------
 
-	// JUST FOR TESTING, MAY CAUSE CONFUSING
+	// JUST FOR TESTING, MAY CAUSE CONFUSION
 	void show(Node* r) {
 		if (r) {
 			if (r->getSense()) std::cout << "ms-";
@@ -158,14 +158,14 @@ public:
 			}
 		}
 	}
-	// JUST FOR TESTING, MAY CAUSE CONFUSING
+	// JUST FOR TESTING, MAY CAUSE CONFUSION
 	void show() {
 		this->show(root);
 	}
 
 	// show all words begin at the node of that last letter of the 'mean' word of the letter tree
 	// NOTE:
-	// cannot display the letter of node which r is pointing to whether makeSense is true or not
+	// cannot display the letter of the node which r is pointing to even if makeSense is true or not
 	void sweepWords(Node* r, std::string& mean) {
 		for (int i = 0; i < MAX_LETTERS; i++) {
 			if (r->getLetterAt(i)) {
@@ -198,8 +198,9 @@ public:
 	}
 
 	// show all words begin at the node of the last letter of the 'mean' word of the letter tree
-	void sweepWords(std::string missedWord) {
-		std::string mean = missedWord;
+	// this function take the user's input (when looking up a word, whether full or not) to suggest words that the user might be looking for 
+	void sweepWords(std::string incompleteInputWord) {
+		std::string mean = incompleteInputWord;
 
 		// find the begining node
 		Node* beginPoint = track(root, mean);
@@ -211,4 +212,3 @@ public:
 	}
 
 };
-
