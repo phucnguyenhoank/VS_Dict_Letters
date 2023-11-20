@@ -15,7 +15,7 @@ this class is a feature of the dictionary (EngVieDict.h)
 
 class LettersTree {
 private:
-	// the key of the highest node is 0
+	// the key of the top node is 0
 	Node* root;
 public:
 	LettersTree() {
@@ -23,7 +23,7 @@ public:
 	}
 
 	// create a letter tree from a wordSource file
-	// each line in wordSource file must have one word
+	// each line in wordSource file must have a word
 	LettersTree(std::string wordSource) {
 		root = new Node();
 		std::ifstream fin(wordSource);
@@ -49,26 +49,26 @@ public:
 	// add the singleLetter to a reasonable place in the array of father node,
 	// this array contains its father's valid child nodes (DynamicArray<Node*> *letters, a field of Node)
 	// father node is the node which r is pointing to
-	// return a pointer which is pointing to child node
+	// return a pointer which is pointing to the child node
 	// WARNING
-	// r must be different from nullptr, tha mean r IS POINTING to a specific, valid Node
-	// singleLetter must be lower case
+	// r must not be a nullptr, that mean r IS POINTING to a specific, valid Node
+	// singleLetter must be lowercase
 	Node* addLetter(Node* r, char singleLetter) {
-		// do not add a new node anytime
-		// if not add, just return that place which don't need to be added to
-		// if so, add to the place need to be placed and return a pointer is pointing to
+		// don't add a new node at anytime
+		// if not add, return that already existed place
+		// if add, return a pointer pointing to the newly added place
 
-		// create a node which is pointing to the next place we are going to add a new node (if need)
+		// create a node pointing to the next place that the singleLetter is going to be added (if needed)
 		Node* nextNode = r->getLetterAt(singleLetter - 'a' + 1);
-		// if the need-ed to place haven't any word yet
+		// if the needed-to-place have no word yet
 		if (nextNode == nullptr) {
-			// add a new node to that place and return a pointer which is pointing to that new place
+			// add a new node to that place and return a pointer pointing to that new place
 			Node* newNode = new Node();
 			newNode->setKey(singleLetter);
 			r->setLetterAt(singleLetter - 'a' + 1, newNode);
 			return newNode;
 		}
-		// just return already existed place
+		// just return an already existed place
 		return nextNode;
 
 	}
@@ -77,20 +77,20 @@ public:
 	void pressWord(std::string word) {
 		if (have(word)) return;
 
-		// the key of the highest node if 0, so first child nodes (level 1, count from 0) of this tree we will add by ourself
+		// the key of the top node is 0, so the first child nodes (level 1, start from 0) of this tree will be added by ourself
 		// get the first letter and remove it from word
 		char fir = word[0];
 		word.erase(0, 1);
-		// the next place we will place to
+		// the next place that we will put in
 		Node* nextNode = root->getLetterAt(fir - 'a' + 1);
-		// if it hasn't placed yet
+		// if it hasn't been placed yet
 		if (nextNode == nullptr) {
 			Node* newNode = new Node();
 			root->setLetterAt(fir - 'a' + 1, newNode);
 			newNode->setKey(fir);
 		}
 
-		// continue add next letters of words
+		// continue add next letters of the words
 		Node* tempRoot = root->getLetterAt(fir - 'a' + 1);
 		while (!word.empty()) {
 			fir = word[0];
@@ -98,7 +98,7 @@ public:
 			tempRoot = addLetter(tempRoot, fir);
 		}
 
-		// the postion of the last node of this word make sense
+		// the position of the last node of this word make sense
 		tempRoot->setSense(true);
 	}
 
@@ -109,7 +109,7 @@ public:
 		if (!have(word)) return;
 		
 		char fir;				
-		Node* nextNode = root;	// this pointer is going to point to the node (if have) represent for the last letter of word
+		Node* nextNode = root;	// this pointer is going to point to the node (if presant) represent for the last letter of word
 
 		// find the place
 		while (word.size()) {
