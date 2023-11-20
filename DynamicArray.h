@@ -45,7 +45,7 @@ public:
         capacity = 0;
     }
 
-    // create an array with initalCapacity(>0) elements
+    // create an array with initalCapacity (>=0) elements
     DynamicArray(int initialCapacity) {
         arr = new T[initialCapacity];
         for (int i = 0; i < initialCapacity; i++) arr[i] = T();
