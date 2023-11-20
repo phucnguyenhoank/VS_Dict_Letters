@@ -1,6 +1,6 @@
 /*
 
-This class is a dictionary but has games
+This class is a dictionary with games
 
 */
 
@@ -33,13 +33,14 @@ private:
 		return practiceWords;
 	}
 
+	// always contains these default words, so that the list won't be empty
 	void addDefaultVocabs(DynamicArray<Vocab*>* listVocabs) {
 		listVocabs->add(new Vocab("joy", "delight, gladness, pleasure", "niem vui"));
 		listVocabs->add(new Vocab("hope", "aim, dream, goal", "hy vong"));
 		listVocabs->add(new Vocab("peace", "accord, truce, agreement", "hoa binh"));
 	}
 
-	// Games will only inlcude words in practicWords list excluding default ones, and return num (the amount of correct answers given by the player)
+	// Games will only take in words in practicWords list (other than default ones), and return num (the amount of correct answers given by the player)
 	// numPlayedWords is the the total of questions the user has played, that mean the game can end at anytime the user wants
 	int getStartedQuizzes(DynamicArray<Vocab*>* practiceWords, int& numPlayedWords) {
 		std::random_device rd;
@@ -52,7 +53,7 @@ private:
 		// get words from practiceWords list in order
 		for (int i = 0; i < practiceWords->getSize() - 3; i++) {
 
-			// create an array in which will store 4 sentences, these 4 sentences are option for the user to choose from
+			// create an array in which will store 4 sentences, these 4 sentences are options for the user to choose from
 			DynamicArray<std::string>* answers = new DynamicArray<std::string>(4);
 
 			// randomly put user word to answers
