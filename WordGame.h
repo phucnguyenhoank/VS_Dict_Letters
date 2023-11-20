@@ -126,7 +126,7 @@ private:
 		std::getline(std::cin, userAnswer);
 
 		while (!askUserABCD_CheckInput(userAnswer)) {
-			ConsoleEffect::foregroundRed("confusing answer, try again: ");
+			ConsoleEffect::foregroundRed("Denied, please try again: ");
 			std::getline(std::cin, userAnswer);
 		}
 
